@@ -1,4 +1,4 @@
-package dev.piotrp.remnant.ui.components.donate
+package dev.piotrp.remnant.ui.components.reminisce
 
 import android.widget.Toast
 import androidx.compose.foundation.layout.Row
@@ -30,31 +30,31 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import dev.piotrp.remnant.R
 import dev.piotrp.remnant.data.RemnantModel
 import dev.piotrp.remnant.data.fakeRemnants
-import dev.piotrp.remnant.ui.screens.donate.DonateViewModel
+import dev.piotrp.remnant.ui.screens.reminisce.RemnantViewModel
 import dev.piotrp.remnant.ui.screens.report.ReportViewModel
 import dev.piotrp.remnant.ui.theme.RemnantTheme
 import timber.log.Timber
 
 @Composable
-fun DonateButton(
+fun ReminisceButton(
     modifier: Modifier = Modifier,
     remnant: RemnantModel,
-    donateViewModel: DonateViewModel = hiltViewModel(),
+    remnantViewModel: RemnantViewModel = hiltViewModel(),
     reportViewModel: ReportViewModel = hiltViewModel(),
-    onTotalDonatedChange: (Int) -> Unit
+    onTotalReminiscedChange: (Int) -> Unit
 ) {
     val remnants = reportViewModel.uiRemnants.collectAsState().value
-    var totalDonated = remnants.sumOf { it.paymentAmount }
+    var totalReminisced = remnants.sumOf { it.paymentAmount }
     val context = LocalContext.current
     val message = stringResource(R.string.limitExceeded,remnant.paymentAmount)
 
     Row {
         Button(
             onClick = {
-                if(totalDonated + remnant.paymentAmount <= 10000) {
-                    totalDonated+=remnant.paymentAmount
-                    onTotalDonatedChange(totalDonated)
-                    donateViewModel.insert(remnant)
+                if(totalReminisced + remnant.paymentAmount <= 10000) {
+                    totalReminisced+=remnant.paymentAmount
+                    onTotalReminiscedChange(totalReminisced)
+                    remnantViewModel.insert(remnant)
                     Timber.i("Remnant info : $remnant")
                     Timber.i("Remnant List info : ${remnants.toList()}")
                 }
@@ -64,10 +64,10 @@ fun DonateButton(
             },
             elevation = ButtonDefaults.buttonElevation(20.dp)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Donate")
+            Icon(Icons.Default.Add, contentDescription = "Reminisce")
             Spacer(modifier.width(width = 4.dp))
             Text(
-                text = stringResource(R.string.donateButton),
+                text = stringResource(R.string.reminisceButton),
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp,
                 color = Color.White
@@ -93,7 +93,7 @@ fun DonateButton(
                         fontSize = 20.sp,
                         color = MaterialTheme.colorScheme.secondary)
                 ) {
-                    append(totalDonated.toString())
+                    append(totalReminisced.toString())
                 }
             })
     }
@@ -101,9 +101,9 @@ fun DonateButton(
 
 @Preview(showBackground = true)
 @Composable
-fun DonateButtonPreview() {
+fun ReminisceButtonPreview() {
     RemnantTheme {
-        PreviewDonateButton(
+        PreviewReminisceButton(
             Modifier,
             RemnantModel(),
             remnants = fakeRemnants.toMutableStateList()
@@ -112,23 +112,23 @@ fun DonateButtonPreview() {
 }
 
 @Composable
-fun PreviewDonateButton(
+fun PreviewReminisceButton(
     modifier: Modifier = Modifier,
     remnant: RemnantModel,
     remnants: SnapshotStateList<RemnantModel>,
-    onTotalDonatedChange: (Int) -> Unit
+    onTotalReminiscedChange: (Int) -> Unit
 ) {
 
-    var totalDonated = remnants.sumOf { it.paymentAmount }
+    var totalReminisced = remnants.sumOf { it.paymentAmount }
     val context = LocalContext.current
     val message = stringResource(R.string.limitExceeded,remnant.paymentAmount)
 
     Row {
         Button(
             onClick = {
-                if(totalDonated + remnant.paymentAmount <= 10000) {
-                    totalDonated+=remnant.paymentAmount
-                    onTotalDonatedChange(totalDonated)
+                if(totalReminisced + remnant.paymentAmount <= 10000) {
+                    totalReminisced+=remnant.paymentAmount
+                    onTotalReminiscedChange(totalReminisced)
                     remnants.add(remnant)
                     Timber.i("Remnant info : $remnant")
                     Timber.i("Remnant List info : ${remnants.toList()}")
@@ -139,10 +139,10 @@ fun PreviewDonateButton(
             },
             elevation = ButtonDefaults.buttonElevation(20.dp)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Donate")
+            Icon(Icons.Default.Add, contentDescription = "Reminisce")
             Spacer(modifier.width(width = 4.dp))
             Text(
-                text = stringResource(R.string.donateButton),
+                text = stringResource(R.string.reminisceButton),
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp,
                 color = Color.White
@@ -168,7 +168,7 @@ fun PreviewDonateButton(
                         fontSize = 20.sp,
                         color = MaterialTheme.colorScheme.secondary)
                 ) {
-                    append(totalDonated.toString())
+                    append(totalReminisced.toString())
                 }
             })
     }

@@ -21,10 +21,10 @@ object Report : AppDestination {
     override val route = "report"
 }
 
-object Donate : AppDestination {
+object Reminisce : AppDestination {
     override val icon = Icons.Filled.AddCircle
-    override val label = "Donate"
-    override val route = "donate"
+    override val label = "Reminisce"
+    override val route = "reminisce"
 }
 
 object About : AppDestination {
@@ -43,7 +43,7 @@ object Details : AppDestination {
     )
 }
 
-val bottomAppBarDestinations = listOf(Donate, Report, About)
-val allDestinations = listOf(Report, Donate, About, Details)
+val bottomAppBarDestinations = listOf(Reminisce, Report, About)
+val allDestinations = listOf(Report, Reminisce, About, Details)
 
 

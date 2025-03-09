@@ -11,7 +11,7 @@ data class RemnantModel(
     val paymentType: String = "N/A",
     val paymentAmount: Int = 0,
     var message: String = "Go Homer!",
-    val dateDonated: Date = Date()
+    val dateReminisced: Date = Date()
 )
 
 val fakeRemnants = List(30) { i ->

@@ -9,7 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import dev.piotrp.remnant.ui.screens.about.AboutScreen
 import dev.piotrp.remnant.ui.screens.details.DetailsScreen
-import dev.piotrp.remnant.ui.screens.donate.DonateScreen
+import dev.piotrp.remnant.ui.screens.reminisce.ReminisceScreen
 import dev.piotrp.remnant.ui.screens.report.ReportScreen
 
 @Composable
@@ -23,9 +23,9 @@ fun NavHostProvider(
         startDestination = Report.route,
         modifier = Modifier.padding(paddingValues = paddingValues)) {
 
-        composable(route = Donate.route) {
-            //call our 'Donate' Screen Here
-            DonateScreen(modifier = modifier)
+        composable(route = Reminisce.route) {
+            //call our 'Reminisce' Screen Here
+            ReminisceScreen(modifier = modifier)
         }
         composable(route = Report.route) {
             //call our 'Report' Screen Here

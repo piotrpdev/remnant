@@ -1,4 +1,4 @@
-package dev.piotrp.remnant.ui.components.donate
+package dev.piotrp.remnant.ui.components.reminisce
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,13 +25,13 @@ fun WelcomeText(modifier: Modifier = Modifier) {
         ),
         verticalArrangement = Arrangement.spacedBy(24.dp)) {
         Text(
-            text = stringResource(R.string.donateTitle),
+            text = stringResource(R.string.reminisceTitle),
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
             color = Color.Black
         )
         Text(
-            text = stringResource(R.string.donateSubtitle),
+            text = stringResource(R.string.reminisceSubtitle),
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
             color = MaterialTheme.colorScheme.tertiary

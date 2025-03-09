@@ -1,4 +1,4 @@
-package dev.piotrp.remnant.ui.screens.donate
+package dev.piotrp.remnant.ui.screens.reminisce
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,7 +9,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class DonateViewModel @Inject
+class RemnantViewModel @Inject
 constructor(private val repository: RoomRepository) : ViewModel() {
 
     fun insert(remnants: RemnantModel)

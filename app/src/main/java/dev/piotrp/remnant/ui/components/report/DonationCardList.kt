@@ -28,7 +28,7 @@ internal fun RemnantCardList(
                 paymentType = remnant.paymentType,
                 paymentAmount = remnant.paymentAmount,
                 message = remnant.message,
-                dateCreated = DateFormat.getDateTimeInstance().format(remnant.dateDonated),
+                dateCreated = DateFormat.getDateTimeInstance().format(remnant.dateReminisced),
                 onClickDelete = { onDeleteRemnant(remnant) },
                 onClickRemnantDetails = { onClickRemnantDetails(remnant.id) }
             )

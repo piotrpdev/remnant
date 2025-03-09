@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Donationx"
+rootProject.name = "Remnant"
 include(":app")
  

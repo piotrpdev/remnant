@@ -1,4 +1,4 @@
-package dev.piotrp.remnant.ui.components.donate
+package dev.piotrp.remnant.ui.components.reminisce
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

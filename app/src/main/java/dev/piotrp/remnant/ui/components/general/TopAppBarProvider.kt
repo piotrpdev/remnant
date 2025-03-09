@@ -17,7 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.piotrp.remnant.navigation.AppDestination
-import dev.piotrp.remnant.navigation.Donate
+import dev.piotrp.remnant.navigation.Reminisce
 import dev.piotrp.remnant.ui.theme.RemnantTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -66,7 +66,7 @@ fun TopAppBarProvider(
 @Composable
 fun TopAppBarPreview() {
     RemnantTheme {
-        TopAppBarProvider(Donate,
+        TopAppBarProvider(Reminisce,
             true)
     }
 }

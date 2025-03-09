@@ -80,9 +80,9 @@ fun DetailsScreen(
             //Payment Amount Field
             ReadOnlyTextField(value = "€" + remnant.paymentAmount.toString(),
                 label = "Payment Amount")
-            //Date Donated Field
-            ReadOnlyTextField(value = remnant.dateDonated.toString(),
-                label = "Date Donated")
+            //Date Reminisced Field
+            ReadOnlyTextField(value = remnant.dateReminisced.toString(),
+                label = "Date Reminisced")
             //Message Field
             text = remnant.message
             OutlinedTextField(modifier = Modifier.fillMaxWidth(),
@@ -213,11 +213,11 @@ fun PreviewDetailScreen(modifier: Modifier) {
                     unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
                 )
             )
-            //Date Donated Field
+            //Date Reminisced Field
             OutlinedTextField(modifier = modifier.fillMaxWidth(),
-                value = remnant.dateDonated.toString(),
+                value = remnant.dateReminisced.toString(),
                 onValueChange = { },
-                label = { Text(text = "Date Donated") },
+                label = { Text(text = "Date Reminisced") },
                 readOnly = true,
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = MaterialTheme.colorScheme.secondary,

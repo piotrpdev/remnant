@@ -125,7 +125,7 @@ private fun RemnantCardContent(
                 )
             }
             Text(
-                text = "Donated $dateCreated", style = MaterialTheme.typography.labelSmall
+                text = "Reminisced $dateCreated", style = MaterialTheme.typography.labelSmall
             )
             if (expanded) {
                 Text(modifier = Modifier.padding(vertical = 16.dp), text = message)

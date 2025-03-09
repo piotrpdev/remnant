@@ -1,8 +1,8 @@
 <resources>
         <string name="app_name">Remnant</string>
-        <string name="donateTitle">Welcome Homer</string>
-        <string name="donateSubtitle">Please Give Generously</string>
-        <string name="donateButton">Donate</string>
+        <string name="reminisceTitle">Welcome Homer</string>
+        <string name="reminisceSubtitle">Please Give Generously</string>
+        <string name="reminisceButton">Reminisce</string>
         <string name="paypal">PayPal</string>
         <string name="direct">Direct</string>
         <string name="amount">Amount</string>

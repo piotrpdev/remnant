@@ -1,4 +1,4 @@
-package dev.piotrp.remnant.ui.screens.donate
+package dev.piotrp.remnant.ui.screens.reminisce
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,26 +21,26 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.piotrp.remnant.data.RemnantModel
 import dev.piotrp.remnant.data.fakeRemnants
-import dev.piotrp.remnant.ui.components.donate.AmountPicker
-import dev.piotrp.remnant.ui.components.donate.DonateButton
-import dev.piotrp.remnant.ui.components.donate.MessageInput
-import dev.piotrp.remnant.ui.components.donate.ProgressBar
-import dev.piotrp.remnant.ui.components.donate.RadioButtonGroup
-import dev.piotrp.remnant.ui.components.donate.WelcomeText
+import dev.piotrp.remnant.ui.components.reminisce.AmountPicker
+import dev.piotrp.remnant.ui.components.reminisce.ReminisceButton
+import dev.piotrp.remnant.ui.components.reminisce.MessageInput
+import dev.piotrp.remnant.ui.components.reminisce.ProgressBar
+import dev.piotrp.remnant.ui.components.reminisce.RadioButtonGroup
+import dev.piotrp.remnant.ui.components.reminisce.WelcomeText
 import dev.piotrp.remnant.ui.screens.report.ReportViewModel
 import dev.piotrp.remnant.ui.theme.RemnantTheme
 
 @Composable
-fun DonateScreen(modifier: Modifier = Modifier,
+fun ReminisceScreen(modifier: Modifier = Modifier,
                  reportViewModel: ReportViewModel = hiltViewModel()
 ) {
     var paymentType by remember { mutableStateOf("Paypal") }
     var paymentAmount by remember { mutableIntStateOf(10) }
     var paymentMessage by remember { mutableStateOf("Go Homer!") }
-    var totalDonated by remember { mutableIntStateOf(0) }
+    var totalReminisced by remember { mutableIntStateOf(0) }
     val remnants = reportViewModel.uiRemnants.collectAsState().value
 
-    totalDonated = remnants.sumOf { it.paymentAmount }
+    totalReminisced = remnants.sumOf { it.paymentAmount }
 
     Column {
         Column(
@@ -66,17 +66,17 @@ fun DonateScreen(modifier: Modifier = Modifier,
             }
             ProgressBar(
                 modifier = modifier,
-                totalDonated = totalDonated)
+                totalReminisced = totalReminisced)
             MessageInput(
                 modifier = modifier,
                 onMessageChange = { paymentMessage = it }
             )
-            DonateButton (
+            ReminisceButton (
                 modifier = modifier,
                 remnant = RemnantModel(paymentType = paymentType,
                     paymentAmount = paymentAmount,
                     message = paymentMessage),
-                onTotalDonatedChange = { totalDonated = it }
+                onTotalReminiscedChange = { totalReminisced = it }
             )
         }
     }
@@ -84,23 +84,23 @@ fun DonateScreen(modifier: Modifier = Modifier,
 
 @Preview(showBackground = true)
 @Composable
-fun DonateScreenPreview() {
+fun ReminisceScreenPreview() {
     RemnantTheme {
-        PreviewDonateScreen( modifier = Modifier,
+        PreviewReminisceScreen( modifier = Modifier,
             remnants = fakeRemnants.toMutableStateList())
     }
 }
 
 @Composable
-fun PreviewDonateScreen(modifier: Modifier = Modifier,
+fun PreviewReminisceScreen(modifier: Modifier = Modifier,
                         remnants: SnapshotStateList<RemnantModel>
 ) {
     var paymentType by remember { mutableStateOf("Paypal") }
     var paymentAmount by remember { mutableIntStateOf(10) }
     var paymentMessage by remember { mutableStateOf("Go Homer!") }
-    var totalDonated by remember { mutableIntStateOf(0) }
+    var totalReminisced by remember { mutableIntStateOf(0) }
 
-    totalDonated = remnants.sumOf { it.paymentAmount }
+    totalReminisced = remnants.sumOf { it.paymentAmount }
 
     Column {
         Column(
@@ -126,17 +126,17 @@ fun PreviewDonateScreen(modifier: Modifier = Modifier,
             }
             ProgressBar(
                 modifier = modifier,
-                totalDonated = totalDonated)
+                totalReminisced = totalReminisced)
             MessageInput(
                 modifier = modifier,
                 onMessageChange = { paymentMessage = it }
             )
-            DonateButton (
+            ReminisceButton (
                 modifier = modifier,
                 remnant = RemnantModel(paymentType = paymentType,
                     paymentAmount = paymentAmount,
                     message = paymentMessage),
-                onTotalDonatedChange = { totalDonated = it }
+                onTotalReminiscedChange = { totalReminisced = it }
             )
         }
     }

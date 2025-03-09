@@ -1,4 +1,4 @@
-package dev.piotrp.remnant.ui.components.donate
+package dev.piotrp.remnant.ui.components.reminisce
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -20,10 +20,10 @@ import dev.piotrp.remnant.ui.theme.RemnantTheme
 
 @Composable
 fun ProgressBar(modifier: Modifier = Modifier,
-                totalDonated: Int,) {
+                totalReminisced: Int,) {
     var currentProgress by remember { mutableFloatStateOf(0f) }
 
-    currentProgress = totalDonated / 10000f
+    currentProgress = totalReminisced / 10000f
 
     LinearProgressIndicator(
         progress = { currentProgress },
@@ -42,6 +42,6 @@ fun ProgressBar(modifier: Modifier = Modifier,
 @Composable
 fun ProgressBarPreview(){
     RemnantTheme {
-        ProgressBar(Modifier, totalDonated = 1000)
+        ProgressBar(Modifier, totalReminisced = 1000)
     }
 }

@@ -1,4 +1,4 @@
-package dev.piotrp.remnant.ui.components.donate
+package dev.piotrp.remnant.ui.components.reminisce
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
