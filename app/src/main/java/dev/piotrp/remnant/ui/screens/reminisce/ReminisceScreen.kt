@@ -36,7 +36,7 @@ fun ReminisceScreen(modifier: Modifier = Modifier,
 ) {
     var paymentType by remember { mutableStateOf("Paypal") }
     var paymentAmount by remember { mutableIntStateOf(10) }
-    var paymentMessage by remember { mutableStateOf("Go Homer!") }
+    var paymentMessage by remember { mutableStateOf("This was nice.") }
     var totalReminisced by remember { mutableIntStateOf(0) }
     val remnants = reportViewModel.uiRemnants.collectAsState().value
 
@@ -97,7 +97,7 @@ fun PreviewReminisceScreen(modifier: Modifier = Modifier,
 ) {
     var paymentType by remember { mutableStateOf("Paypal") }
     var paymentAmount by remember { mutableIntStateOf(10) }
-    var paymentMessage by remember { mutableStateOf("Go Homer!") }
+    var paymentMessage by remember { mutableStateOf("This was nice.") }
     var totalReminisced by remember { mutableIntStateOf(0) }
 
     totalReminisced = remnants.sumOf { it.paymentAmount }

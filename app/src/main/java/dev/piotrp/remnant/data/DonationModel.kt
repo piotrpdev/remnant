@@ -10,7 +10,7 @@ data class RemnantModel(
     val id: Int = 0,
     val paymentType: String = "N/A",
     val paymentAmount: Int = 0,
-    var message: String = "Go Homer!",
+    var message: String = "This was nice.",
     val dateReminisced: Date = Date()
 )
 
