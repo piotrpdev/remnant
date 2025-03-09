@@ -18,20 +18,20 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.piotrp.remnant.R
-import dev.piotrp.remnant.data.DonationModel
-import dev.piotrp.remnant.data.fakeDonations
+import dev.piotrp.remnant.data.RemnantModel
+import dev.piotrp.remnant.data.fakeRemnants
 import dev.piotrp.remnant.ui.components.general.Centre
-import dev.piotrp.remnant.ui.components.report.DonationCardList
+import dev.piotrp.remnant.ui.components.report.RemnantCardList
 import dev.piotrp.remnant.ui.components.report.ReportText
 import dev.piotrp.remnant.ui.theme.RemnantTheme
 
 
 @Composable
 fun ReportScreen(modifier: Modifier = Modifier,
-                 onClickDonationDetails: (Int) -> Unit,
+                 onClickRemnantDetails: (Int) -> Unit,
                  reportViewModel: ReportViewModel = hiltViewModel()) {
 
-    val donations = reportViewModel.uiDonations.collectAsState().value
+    val remnants = reportViewModel.uiRemnants.collectAsState().value
 
     Column {
         Column(
@@ -41,7 +41,7 @@ fun ReportScreen(modifier: Modifier = Modifier,
             ),
         ) {
             ReportText()
-            if(donations.isEmpty())
+            if(remnants.isEmpty())
                 Centre(Modifier.fillMaxSize()) {
                     Text(color = MaterialTheme.colorScheme.secondary,
                         fontWeight = FontWeight.Bold,
@@ -52,12 +52,12 @@ fun ReportScreen(modifier: Modifier = Modifier,
                     )
                 }
             else
-                DonationCardList(
-                    donations = donations,
-                    onClickDonationDetails = onClickDonationDetails,
-                    onDeleteDonation = {
-                            donation: DonationModel ->
-                                reportViewModel.deleteDonation(donation)
+                RemnantCardList(
+                    remnants = remnants,
+                    onClickRemnantDetails = onClickRemnantDetails,
+                    onDeleteRemnant = {
+                            remnant: RemnantModel ->
+                                reportViewModel.deleteRemnant(remnant)
                     }
                 )
         }
@@ -69,14 +69,14 @@ fun ReportScreen(modifier: Modifier = Modifier,
 fun ReportScreenPreview() {
     RemnantTheme {
         PreviewReportScreen( modifier = Modifier,
-            donations = fakeDonations.toMutableStateList()
+            remnants = fakeRemnants.toMutableStateList()
         )
     }
 }
 
 @Composable
 fun PreviewReportScreen(modifier: Modifier = Modifier,
-                        donations: SnapshotStateList<DonationModel>
+                        remnants: SnapshotStateList<RemnantModel>
 ) {
 
     Column {
@@ -87,7 +87,7 @@ fun PreviewReportScreen(modifier: Modifier = Modifier,
             ),
         ) {
             ReportText()
-            if(donations.isEmpty())
+            if(remnants.isEmpty())
                 Centre(Modifier.fillMaxSize()) {
                     Text(color = MaterialTheme.colorScheme.secondary,
                         fontWeight = FontWeight.Bold,
@@ -98,10 +98,10 @@ fun PreviewReportScreen(modifier: Modifier = Modifier,
                     )
                 }
             else
-                DonationCardList(
-                    donations = donations,
-                    onDeleteDonation = {},
-                    onClickDonationDetails = { }
+                RemnantCardList(
+                    remnants = remnants,
+                    onDeleteRemnant = {},
+                    onClickRemnantDetails = { }
                 )
         }
     }

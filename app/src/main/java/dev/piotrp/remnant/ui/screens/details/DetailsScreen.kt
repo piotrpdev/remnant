@@ -34,7 +34,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import dev.piotrp.remnant.data.DonationModel
+import dev.piotrp.remnant.data.RemnantModel
 import dev.piotrp.remnant.ui.components.details.DetailsScreenText
 import dev.piotrp.remnant.ui.components.details.ReadOnlyTextField
 import dev.piotrp.remnant.ui.theme.RemnantTheme
@@ -45,7 +45,7 @@ fun DetailsScreen(
     modifier: Modifier = Modifier,
     detailViewModel: DetailsViewModel = hiltViewModel()
 ) {
-    var donation = detailViewModel.donation.value
+    var remnant = detailViewModel.remnant.value
     val errorEmptyMessage = "Message Cannot be Empty..."
     val errorShortMessage = "Message must be at least 2 characters"
     var text by rememberSaveable { mutableStateOf("") }
@@ -75,22 +75,22 @@ fun DetailsScreen(
         )
         {
             //Payment Type Field
-            ReadOnlyTextField(value = donation.paymentType,
+            ReadOnlyTextField(value = remnant.paymentType,
                 label = "Payment Type")
             //Payment Amount Field
-            ReadOnlyTextField(value = "€" + donation.paymentAmount.toString(),
+            ReadOnlyTextField(value = "€" + remnant.paymentAmount.toString(),
                 label = "Payment Amount")
             //Date Donated Field
-            ReadOnlyTextField(value = donation.dateDonated.toString(),
+            ReadOnlyTextField(value = remnant.dateDonated.toString(),
                 label = "Date Donated")
             //Message Field
-            text = donation.message
+            text = remnant.message
             OutlinedTextField(modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text = it
                     validate(text)
-                    donation.message = text
+                    remnant.message = text
                 },
                 maxLines = 2,
                 label = { Text(text = "Message") },
@@ -130,7 +130,7 @@ fun DetailsScreen(
             Spacer(modifier.height(height = 48.dp))
             Button(
                 onClick = {
-                    detailViewModel.updateDonation(donation)
+                    detailViewModel.updateRemnant(remnant)
                     onMessageChanged = false
                 },
                 elevation = ButtonDefaults.buttonElevation(20.dp),
@@ -160,7 +160,7 @@ fun DetailScreenPreview() {
 @Composable
 fun PreviewDetailScreen(modifier: Modifier) {
 
-    val donation = DonationModel()
+    val remnant = RemnantModel()
     val errorEmptyMessage = "Message Cannot be Empty..."
     val errorShortMessage = "Message must be at least 2 characters"
     var text by rememberSaveable { mutableStateOf("") }
@@ -195,7 +195,7 @@ fun PreviewDetailScreen(modifier: Modifier) {
         {
             //Payment Type Field
             OutlinedTextField(modifier = modifier.fillMaxWidth(),
-                value = donation.paymentType,
+                value = remnant.paymentType,
                 onValueChange = { },
                 label = { Text(text = "Payment Type") },
                 readOnly = true,
@@ -205,7 +205,7 @@ fun PreviewDetailScreen(modifier: Modifier) {
             )
             //Payment Amount Field
             OutlinedTextField(modifier = modifier.fillMaxWidth(),
-                value = "€" + donation.paymentAmount.toString(),
+                value = "€" + remnant.paymentAmount.toString(),
                 onValueChange = { },
                 label = { Text(text = "Payment Amount") },
                 readOnly = true,
@@ -215,7 +215,7 @@ fun PreviewDetailScreen(modifier: Modifier) {
             )
             //Date Donated Field
             OutlinedTextField(modifier = modifier.fillMaxWidth(),
-                value = donation.dateDonated.toString(),
+                value = remnant.dateDonated.toString(),
                 onValueChange = { },
                 label = { Text(text = "Date Donated") },
                 readOnly = true,
@@ -223,15 +223,15 @@ fun PreviewDetailScreen(modifier: Modifier) {
                     unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
                 )
             )
-            //  Log.i("VM Call","Message is : ${donation.message}")
+            //  Log.i("VM Call","Message is : ${remnant.message}")
             //Message Field
-            text = donation.message
+            text = remnant.message
             OutlinedTextField(modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text = it
                     validate(text)
-                    donation.message = text
+                    remnant.message = text
                 },
                 maxLines = 2,
                 label = { Text(text = "Message") },

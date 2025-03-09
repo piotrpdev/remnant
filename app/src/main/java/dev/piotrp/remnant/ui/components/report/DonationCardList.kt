@@ -7,30 +7,30 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.Wallpapers
-import dev.piotrp.remnant.data.DonationModel
-import dev.piotrp.remnant.data.fakeDonations
+import dev.piotrp.remnant.data.RemnantModel
+import dev.piotrp.remnant.data.fakeRemnants
 import dev.piotrp.remnant.ui.theme.RemnantTheme
 import java.text.DateFormat
 
 @Composable
-internal fun DonationCardList(
-    donations: List<DonationModel>,
+internal fun RemnantCardList(
+    remnants: List<RemnantModel>,
     modifier: Modifier = Modifier,
-    onDeleteDonation: (DonationModel) -> Unit,
-    onClickDonationDetails: (Int) -> Unit,
+    onDeleteRemnant: (RemnantModel) -> Unit,
+    onClickRemnantDetails: (Int) -> Unit,
 ) {
     LazyColumn {
         items(
-            items = donations,
-            key = { donation -> donation.id }
-        ) { donation ->
-            DonationCard(
-                paymentType = donation.paymentType,
-                paymentAmount = donation.paymentAmount,
-                message = donation.message,
-                dateCreated = DateFormat.getDateTimeInstance().format(donation.dateDonated),
-                onClickDelete = { onDeleteDonation(donation) },
-                onClickDonationDetails = { onClickDonationDetails(donation.id) }
+            items = remnants,
+            key = { remnant -> remnant.id }
+        ) { remnant ->
+            RemnantCard(
+                paymentType = remnant.paymentType,
+                paymentAmount = remnant.paymentAmount,
+                message = remnant.message,
+                dateCreated = DateFormat.getDateTimeInstance().format(remnant.dateDonated),
+                onClickDelete = { onDeleteRemnant(remnant) },
+                onClickRemnantDetails = { onClickRemnantDetails(remnant.id) }
             )
         }
     }
@@ -40,12 +40,12 @@ internal fun DonationCardList(
     wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE
 )
 @Composable
-fun DonationCardListPreview() {
+fun RemnantCardListPreview() {
     RemnantTheme {
-        DonationCardList(
-            fakeDonations.toMutableStateList(),
-            onDeleteDonation = {},
-            onClickDonationDetails = { },
+        RemnantCardList(
+            fakeRemnants.toMutableStateList(),
+            onDeleteRemnant = {},
+            onClickRemnantDetails = { },
         )
         }
     }

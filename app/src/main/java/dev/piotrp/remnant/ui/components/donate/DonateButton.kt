@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.piotrp.remnant.R
-import dev.piotrp.remnant.data.DonationModel
-import dev.piotrp.remnant.data.fakeDonations
+import dev.piotrp.remnant.data.RemnantModel
+import dev.piotrp.remnant.data.fakeRemnants
 import dev.piotrp.remnant.ui.screens.donate.DonateViewModel
 import dev.piotrp.remnant.ui.screens.report.ReportViewModel
 import dev.piotrp.remnant.ui.theme.RemnantTheme
@@ -38,25 +38,25 @@ import timber.log.Timber
 @Composable
 fun DonateButton(
     modifier: Modifier = Modifier,
-    donation: DonationModel,
+    remnant: RemnantModel,
     donateViewModel: DonateViewModel = hiltViewModel(),
     reportViewModel: ReportViewModel = hiltViewModel(),
     onTotalDonatedChange: (Int) -> Unit
 ) {
-    val donations = reportViewModel.uiDonations.collectAsState().value
-    var totalDonated = donations.sumOf { it.paymentAmount }
+    val remnants = reportViewModel.uiRemnants.collectAsState().value
+    var totalDonated = remnants.sumOf { it.paymentAmount }
     val context = LocalContext.current
-    val message = stringResource(R.string.limitExceeded,donation.paymentAmount)
+    val message = stringResource(R.string.limitExceeded,remnant.paymentAmount)
 
     Row {
         Button(
             onClick = {
-                if(totalDonated + donation.paymentAmount <= 10000) {
-                    totalDonated+=donation.paymentAmount
+                if(totalDonated + remnant.paymentAmount <= 10000) {
+                    totalDonated+=remnant.paymentAmount
                     onTotalDonatedChange(totalDonated)
-                    donateViewModel.insert(donation)
-                    Timber.i("Donation info : $donation")
-                    Timber.i("Donation List info : ${donations.toList()}")
+                    donateViewModel.insert(remnant)
+                    Timber.i("Remnant info : $remnant")
+                    Timber.i("Remnant List info : ${remnants.toList()}")
                 }
                 else
                     Toast.makeText(context,message,
@@ -105,8 +105,8 @@ fun DonateButtonPreview() {
     RemnantTheme {
         PreviewDonateButton(
             Modifier,
-            DonationModel(),
-            donations = fakeDonations.toMutableStateList()
+            RemnantModel(),
+            remnants = fakeRemnants.toMutableStateList()
         ) {}
     }
 }
@@ -114,24 +114,24 @@ fun DonateButtonPreview() {
 @Composable
 fun PreviewDonateButton(
     modifier: Modifier = Modifier,
-    donation: DonationModel,
-    donations: SnapshotStateList<DonationModel>,
+    remnant: RemnantModel,
+    remnants: SnapshotStateList<RemnantModel>,
     onTotalDonatedChange: (Int) -> Unit
 ) {
 
-    var totalDonated = donations.sumOf { it.paymentAmount }
+    var totalDonated = remnants.sumOf { it.paymentAmount }
     val context = LocalContext.current
-    val message = stringResource(R.string.limitExceeded,donation.paymentAmount)
+    val message = stringResource(R.string.limitExceeded,remnant.paymentAmount)
 
     Row {
         Button(
             onClick = {
-                if(totalDonated + donation.paymentAmount <= 10000) {
-                    totalDonated+=donation.paymentAmount
+                if(totalDonated + remnant.paymentAmount <= 10000) {
+                    totalDonated+=remnant.paymentAmount
                     onTotalDonatedChange(totalDonated)
-                    donations.add(donation)
-                    Timber.i("Donation info : $donation")
-                    Timber.i("Donation List info : ${donations.toList()}")
+                    remnants.add(remnant)
+                    Timber.i("Remnant info : $remnant")
+                    Timber.i("Remnant List info : ${remnants.toList()}")
                 }
                 else
                     Toast.makeText(context,message,

@@ -23,7 +23,7 @@ fun DetailsScreenText(modifier: Modifier = Modifier) {
         ),
         verticalArrangement = Arrangement.spacedBy(24.dp)) {
         Text(
-            text = "Donation Details",
+            text = "Remnant Details",
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
             color = Color.Black

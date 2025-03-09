@@ -47,13 +47,13 @@ import java.text.DateFormat
 import java.util.Date
 
 @Composable
-fun DonationCard(
+fun RemnantCard(
     paymentType: String,
     paymentAmount: Int,
     message: String,
     dateCreated: String,
     onClickDelete: () -> Unit,
-    onClickDonationDetails: () -> Unit,
+    onClickRemnantDetails: () -> Unit,
 ) {
     Card(
         border = BorderStroke(1.dp, Color.Black),
@@ -62,23 +62,23 @@ fun DonationCard(
         ),
         modifier = Modifier.padding(vertical = 2.dp, horizontal = 2.dp)
     ) {
-        DonationCardContent(paymentType,
+        RemnantCardContent(paymentType,
             paymentAmount,
             message,
             dateCreated,
             onClickDelete,
-            onClickDonationDetails)
+            onClickRemnantDetails)
     }
 }
 
 @Composable
-private fun DonationCardContent(
+private fun RemnantCardContent(
     paymentType: String,
     paymentAmount: Int,
     message: String,
     dateCreated: String,
     onClickDelete: () -> Unit,
-    onClickDonationDetails: () -> Unit
+    onClickRemnantDetails: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteConfirmDialog by remember { mutableStateOf(false) }
@@ -107,7 +107,7 @@ private fun DonationCardContent(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Filled.Business,
-                    "Donation Status",
+                    "Remnant Status",
                     Modifier.padding(end = 8.dp)
                 )
                 Text(
@@ -131,14 +131,14 @@ private fun DonationCardContent(
                 Text(modifier = Modifier.padding(vertical = 16.dp), text = message)
                 Row(modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween) {
-                    FilledTonalButton(onClick = onClickDonationDetails) {
+                    FilledTonalButton(onClick = onClickRemnantDetails) {
                         Text(text = "Show More")
                     }
 
                     FilledTonalIconButton(onClick = {
                         showDeleteConfirmDialog = true
                     }) {
-                        Icon(Icons.Filled.Delete, "Delete Donation")
+                        Icon(Icons.Filled.Delete, "Delete Remnant")
                     }
 
                     if (showDeleteConfirmDialog) {
@@ -186,9 +186,9 @@ fun showDeleteAlert(
 
 @Preview
 @Composable
-fun DonationCardPreview() {
+fun RemnantCardPreview() {
     RemnantTheme {
-        DonationCard(
+        RemnantCard(
             paymentType = "Direct",
             paymentAmount = 100,
             message = """
@@ -197,7 +197,7 @@ fun DonationCardPreview() {
             """.trimIndent(),
             dateCreated = DateFormat.getDateTimeInstance().format(Date()),
             onClickDelete = { },
-            onClickDonationDetails = {}
+            onClickRemnantDetails = {}
         )
     }
 }

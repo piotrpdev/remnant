@@ -30,9 +30,9 @@ fun NavHostProvider(
         composable(route = Report.route) {
             //call our 'Report' Screen Here
             ReportScreen(modifier = modifier,
-                onClickDonationDetails = {
-                    donationId : Int ->
-                    navController.navigateToDonationDetails(donationId)
+                onClickRemnantDetails = {
+                    remnantId : Int ->
+                    navController.navigateToRemnantDetails(remnantId)
                 },
             )
         }
@@ -54,7 +54,7 @@ fun NavHostProvider(
     }
 }
 
-private fun NavHostController.navigateToDonationDetails(donationId: Int) {
-    this.navigate("details/$donationId")
+private fun NavHostController.navigateToRemnantDetails(remnantId: Int) {
+    this.navigate("details/$remnantId")
 }
 

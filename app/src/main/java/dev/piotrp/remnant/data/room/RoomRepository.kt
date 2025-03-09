@@ -1,22 +1,22 @@
 package dev.piotrp.remnant.data.room
 
-import dev.piotrp.remnant.data.DonationModel
+import dev.piotrp.remnant.data.RemnantModel
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class RoomRepository @Inject
-constructor(private val donationDAO: DonationDAO) {
-    fun getAll(): Flow<List<DonationModel>>
-            = donationDAO.getAll()
+constructor(private val remnantDAO: RemnantDAO) {
+    fun getAll(): Flow<List<RemnantModel>>
+            = remnantDAO.getAll()
 
-    fun get(id: Int) = donationDAO.get(id)
+    fun get(id: Int) = remnantDAO.get(id)
 
-    suspend fun insert(donation: DonationModel)
-            { donationDAO.insert(donation) }
+    suspend fun insert(remnant: RemnantModel)
+            { remnantDAO.insert(remnant) }
 
-    suspend fun update(donation: DonationModel)
-            { donationDAO.update(donation.id,donation.message) }
+    suspend fun update(remnant: RemnantModel)
+            { remnantDAO.update(remnant.id,remnant.message) }
 
-    suspend fun delete(donation: DonationModel)
-            { donationDAO.delete(donation) }
+    suspend fun delete(remnant: RemnantModel)
+            { remnantDAO.delete(remnant) }
 }

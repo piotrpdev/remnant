@@ -4,23 +4,23 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
-import dev.piotrp.remnant.data.DonationModel
+import dev.piotrp.remnant.data.RemnantModel
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface DonationDAO {
-    @Query("SELECT * FROM donationmodel")
-    fun getAll(): Flow<List<DonationModel>>
+interface RemnantDAO {
+    @Query("SELECT * FROM remnantmodel")
+    fun getAll(): Flow<List<RemnantModel>>
 
-    @Query("SELECT * FROM donationmodel WHERE id=:id")
-    fun get(id: Int): Flow<DonationModel>
+    @Query("SELECT * FROM remnantmodel WHERE id=:id")
+    fun get(id: Int): Flow<RemnantModel>
 
     @Insert
-    suspend fun insert(donation: DonationModel)
+    suspend fun insert(remnant: RemnantModel)
 
-    @Query("UPDATE donationmodel SET message=:message WHERE id = :id")
+    @Query("UPDATE remnantmodel SET message=:message WHERE id = :id")
     suspend fun update(id: Int, message:String)
 
     @Delete
-    suspend fun delete(donation: DonationModel)
+    suspend fun delete(remnant: RemnantModel)
 }

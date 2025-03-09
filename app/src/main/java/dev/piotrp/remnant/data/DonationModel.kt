@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 import java.util.Date
 
 @Entity
-data class DonationModel(
+data class RemnantModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
     val paymentType: String = "N/A",
@@ -14,8 +14,8 @@ data class DonationModel(
     val dateDonated: Date = Date()
 )
 
-val fakeDonations = List(30) { i ->
-    DonationModel(id = 12345 + i,
+val fakeRemnants = List(30) { i ->
+    RemnantModel(id = 12345 + i,
         "PayPal $i",
         i.toInt(),
         "Message $i",

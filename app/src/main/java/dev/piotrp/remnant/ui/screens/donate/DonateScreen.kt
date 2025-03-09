@@ -19,8 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import dev.piotrp.remnant.data.DonationModel
-import dev.piotrp.remnant.data.fakeDonations
+import dev.piotrp.remnant.data.RemnantModel
+import dev.piotrp.remnant.data.fakeRemnants
 import dev.piotrp.remnant.ui.components.donate.AmountPicker
 import dev.piotrp.remnant.ui.components.donate.DonateButton
 import dev.piotrp.remnant.ui.components.donate.MessageInput
@@ -38,9 +38,9 @@ fun DonateScreen(modifier: Modifier = Modifier,
     var paymentAmount by remember { mutableIntStateOf(10) }
     var paymentMessage by remember { mutableStateOf("Go Homer!") }
     var totalDonated by remember { mutableIntStateOf(0) }
-    val donations = reportViewModel.uiDonations.collectAsState().value
+    val remnants = reportViewModel.uiRemnants.collectAsState().value
 
-    totalDonated = donations.sumOf { it.paymentAmount }
+    totalDonated = remnants.sumOf { it.paymentAmount }
 
     Column {
         Column(
@@ -73,7 +73,7 @@ fun DonateScreen(modifier: Modifier = Modifier,
             )
             DonateButton (
                 modifier = modifier,
-                donation = DonationModel(paymentType = paymentType,
+                remnant = RemnantModel(paymentType = paymentType,
                     paymentAmount = paymentAmount,
                     message = paymentMessage),
                 onTotalDonatedChange = { totalDonated = it }
@@ -87,20 +87,20 @@ fun DonateScreen(modifier: Modifier = Modifier,
 fun DonateScreenPreview() {
     RemnantTheme {
         PreviewDonateScreen( modifier = Modifier,
-            donations = fakeDonations.toMutableStateList())
+            remnants = fakeRemnants.toMutableStateList())
     }
 }
 
 @Composable
 fun PreviewDonateScreen(modifier: Modifier = Modifier,
-                        donations: SnapshotStateList<DonationModel>
+                        remnants: SnapshotStateList<RemnantModel>
 ) {
     var paymentType by remember { mutableStateOf("Paypal") }
     var paymentAmount by remember { mutableIntStateOf(10) }
     var paymentMessage by remember { mutableStateOf("Go Homer!") }
     var totalDonated by remember { mutableIntStateOf(0) }
 
-    totalDonated = donations.sumOf { it.paymentAmount }
+    totalDonated = remnants.sumOf { it.paymentAmount }
 
     Column {
         Column(
@@ -133,7 +133,7 @@ fun PreviewDonateScreen(modifier: Modifier = Modifier,
             )
             DonateButton (
                 modifier = modifier,
-                donation = DonationModel(paymentType = paymentType,
+                remnant = RemnantModel(paymentType = paymentType,
                     paymentAmount = paymentAmount,
                     message = paymentMessage),
                 onTotalDonatedChange = { totalDonated = it }
