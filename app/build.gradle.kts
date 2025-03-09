@@ -9,11 +9,11 @@ plugins {
 
 android {
 
-    namespace = "ie.setu.donationx"
+    namespace = "dev.piotrp.remnant"
     compileSdk = 35
     
     defaultConfig {
-        applicationId = "ie.setu.donationx"
+        applicationId = "dev.piotrp.remnant"
         minSdk = 30
         targetSdk = 35
         versionCode = 1
