@@ -74,12 +74,9 @@ fun DetailsScreen(
             ),
         )
         {
-            //Payment Type Field
-            ReadOnlyTextField(value = remnant.paymentType,
-                label = "Payment Type")
-            //Payment Amount Field
-            ReadOnlyTextField(value = "€" + remnant.paymentAmount.toString(),
-                label = "Payment Amount")
+            //Remnant Type Field
+            ReadOnlyTextField(value = remnant.remnantType,
+                label = "Remnant Type")
             //Date Reminisced Field
             ReadOnlyTextField(value = remnant.dateReminisced.toString(),
                 label = "Date Reminisced")
@@ -193,21 +190,11 @@ fun PreviewDetailScreen(modifier: Modifier) {
                 ),
         )
         {
-            //Payment Type Field
+            //Remnant Type Field
             OutlinedTextField(modifier = modifier.fillMaxWidth(),
-                value = remnant.paymentType,
+                value = remnant.remnantType,
                 onValueChange = { },
-                label = { Text(text = "Payment Type") },
-                readOnly = true,
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
-                )
-            )
-            //Payment Amount Field
-            OutlinedTextField(modifier = modifier.fillMaxWidth(),
-                value = "€" + remnant.paymentAmount.toString(),
-                onValueChange = { },
-                label = { Text(text = "Payment Amount") },
+                label = { Text(text = "Remnant Type") },
                 readOnly = true,
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = MaterialTheme.colorScheme.secondary,

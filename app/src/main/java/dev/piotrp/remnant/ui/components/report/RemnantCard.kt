@@ -48,8 +48,7 @@ import java.util.Date
 
 @Composable
 fun RemnantCard(
-    paymentType: String,
-    paymentAmount: Int,
+    remnantType: String,
     message: String,
     dateCreated: String,
     onClickDelete: () -> Unit,
@@ -62,8 +61,7 @@ fun RemnantCard(
         ),
         modifier = Modifier.padding(vertical = 2.dp, horizontal = 2.dp)
     ) {
-        RemnantCardContent(paymentType,
-            paymentAmount,
+        RemnantCardContent(remnantType,
             message,
             dateCreated,
             onClickDelete,
@@ -73,8 +71,7 @@ fun RemnantCard(
 
 @Composable
 private fun RemnantCardContent(
-    paymentType: String,
-    paymentAmount: Int,
+    remnantType: String,
     message: String,
     dateCreated: String,
     onClickDelete: () -> Unit,
@@ -111,14 +108,7 @@ private fun RemnantCardContent(
                     Modifier.padding(end = 8.dp)
                 )
                 Text(
-                    text = paymentType,
-                    style = MaterialTheme.typography.headlineMedium.copy(
-                        fontWeight = FontWeight.ExtraBold
-                    )
-                )
-                Spacer(Modifier.weight(1f))
-                Text(
-                    text = "€$paymentAmount",
+                    text = remnantType,
                     style = MaterialTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.ExtraBold
                     )
@@ -189,8 +179,7 @@ fun showDeleteAlert(
 fun RemnantCardPreview() {
     RemnantTheme {
         RemnantCard(
-            paymentType = "Direct",
-            paymentAmount = 100,
+            remnantType = "Romantic",
             message = """
                 A message entered 
                 by the user..."

@@ -41,26 +41,16 @@ fun ReminisceButton(
     remnant: RemnantModel,
     remnantViewModel: RemnantViewModel = hiltViewModel(),
     reportViewModel: ReportViewModel = hiltViewModel(),
-    onTotalReminiscedChange: (Int) -> Unit
 ) {
     val remnants = reportViewModel.uiRemnants.collectAsState().value
-    var totalReminisced = remnants.sumOf { it.paymentAmount }
     val context = LocalContext.current
-    val message = stringResource(R.string.limitExceeded,remnant.paymentAmount)
 
     Row {
         Button(
             onClick = {
-                if(totalReminisced + remnant.paymentAmount <= 10000) {
-                    totalReminisced+=remnant.paymentAmount
-                    onTotalReminiscedChange(totalReminisced)
-                    remnantViewModel.insert(remnant)
-                    Timber.i("Remnant info : $remnant")
-                    Timber.i("Remnant List info : ${remnants.toList()}")
-                }
-                else
-                    Toast.makeText(context,message,
-                        Toast.LENGTH_SHORT).show()
+                remnantViewModel.insert(remnant)
+                Timber.i("Remnant info : $remnant")
+                Timber.i("Remnant List info : ${remnants.toList()}")
             },
             elevation = ButtonDefaults.buttonElevation(20.dp)
         ) {
@@ -73,29 +63,6 @@ fun ReminisceButton(
                 color = Color.White
             )
         }
-        Spacer(modifier.weight(1f))
-        Text(
-            buildAnnotatedString {
-                withStyle(
-                    style = SpanStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        color = Color.Black
-                    )
-                ) {
-                    append(stringResource(R.string.total) + " €")
-                }
-
-
-                withStyle(
-                    style = SpanStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.secondary)
-                ) {
-                    append(totalReminisced.toString())
-                }
-            })
     }
 }
 
@@ -107,7 +74,7 @@ fun ReminisceButtonPreview() {
             Modifier,
             RemnantModel(),
             remnants = fakeRemnants.toMutableStateList()
-        ) {}
+        )
     }
 }
 
@@ -116,26 +83,15 @@ fun PreviewReminisceButton(
     modifier: Modifier = Modifier,
     remnant: RemnantModel,
     remnants: SnapshotStateList<RemnantModel>,
-    onTotalReminiscedChange: (Int) -> Unit
 ) {
-
-    var totalReminisced = remnants.sumOf { it.paymentAmount }
     val context = LocalContext.current
-    val message = stringResource(R.string.limitExceeded,remnant.paymentAmount)
 
     Row {
         Button(
             onClick = {
-                if(totalReminisced + remnant.paymentAmount <= 10000) {
-                    totalReminisced+=remnant.paymentAmount
-                    onTotalReminiscedChange(totalReminisced)
-                    remnants.add(remnant)
-                    Timber.i("Remnant info : $remnant")
-                    Timber.i("Remnant List info : ${remnants.toList()}")
-                }
-                else
-                    Toast.makeText(context,message,
-                        Toast.LENGTH_SHORT).show()
+                remnants.add(remnant)
+                Timber.i("Remnant info : $remnant")
+                Timber.i("Remnant List info : ${remnants.toList()}")
             },
             elevation = ButtonDefaults.buttonElevation(20.dp)
         ) {
@@ -148,28 +104,5 @@ fun PreviewReminisceButton(
                 color = Color.White
             )
         }
-        Spacer(modifier.weight(1f))
-        Text(
-            buildAnnotatedString {
-                withStyle(
-                    style = SpanStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        color = Color.Black
-                    )
-                ) {
-                    append(stringResource(R.string.total) + " €")
-                }
-
-
-                withStyle(
-                    style = SpanStyle(
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        color = MaterialTheme.colorScheme.secondary)
-                ) {
-                    append(totalReminisced.toString())
-                }
-            })
     }
 }

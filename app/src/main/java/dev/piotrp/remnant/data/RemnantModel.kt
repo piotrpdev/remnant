@@ -8,16 +8,14 @@ import java.util.Date
 data class RemnantModel(
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0,
-    val paymentType: String = "N/A",
-    val paymentAmount: Int = 0,
-    var message: String = "This was nice.",
+    val remnantType: String = "N/A",
+    var message: String = "Saw Bigfoot here.",
     val dateReminisced: Date = Date()
 )
 
 val fakeRemnants = List(30) { i ->
     RemnantModel(id = 12345 + i,
-        "PayPal $i",
-        i.toInt(),
+        "Funny $i",
         "Message $i",
         Date()
     )

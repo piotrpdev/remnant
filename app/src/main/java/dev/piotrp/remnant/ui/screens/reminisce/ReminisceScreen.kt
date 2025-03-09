@@ -21,10 +21,8 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.piotrp.remnant.data.RemnantModel
 import dev.piotrp.remnant.data.fakeRemnants
-import dev.piotrp.remnant.ui.components.reminisce.AmountPicker
 import dev.piotrp.remnant.ui.components.reminisce.ReminisceButton
 import dev.piotrp.remnant.ui.components.reminisce.MessageInput
-import dev.piotrp.remnant.ui.components.reminisce.ProgressBar
 import dev.piotrp.remnant.ui.components.reminisce.RadioButtonGroup
 import dev.piotrp.remnant.ui.components.reminisce.WelcomeText
 import dev.piotrp.remnant.ui.screens.report.ReportViewModel
@@ -34,13 +32,9 @@ import dev.piotrp.remnant.ui.theme.RemnantTheme
 fun ReminisceScreen(modifier: Modifier = Modifier,
                  reportViewModel: ReportViewModel = hiltViewModel()
 ) {
-    var paymentType by remember { mutableStateOf("Paypal") }
-    var paymentAmount by remember { mutableIntStateOf(10) }
-    var paymentMessage by remember { mutableStateOf("This was nice.") }
-    var totalReminisced by remember { mutableIntStateOf(0) }
+    var remnantType by remember { mutableStateOf("Funny") }
+    var remnantMessage by remember { mutableStateOf("This was nice.") }
     val remnants = reportViewModel.uiRemnants.collectAsState().value
-
-    totalReminisced = remnants.sumOf { it.paymentAmount }
 
     Column {
         Column(
@@ -57,26 +51,18 @@ fun ReminisceScreen(modifier: Modifier = Modifier,
             {
                 RadioButtonGroup(
                     modifier = modifier,
-                    onPaymentTypeChange = { paymentType = it }
+                    onRemnantTypeChange = { remnantType = it }
                 )
                 Spacer(modifier.weight(1f))
-                AmountPicker(
-                    onPaymentAmountChange = { paymentAmount = it }
-                )
             }
-            ProgressBar(
-                modifier = modifier,
-                totalReminisced = totalReminisced)
             MessageInput(
                 modifier = modifier,
-                onMessageChange = { paymentMessage = it }
+                onMessageChange = { remnantMessage = it }
             )
             ReminisceButton (
                 modifier = modifier,
-                remnant = RemnantModel(paymentType = paymentType,
-                    paymentAmount = paymentAmount,
-                    message = paymentMessage),
-                onTotalReminiscedChange = { totalReminisced = it }
+                remnant = RemnantModel(remnantType = remnantType,
+                    message = remnantMessage),
             )
         }
     }
@@ -95,12 +81,8 @@ fun ReminisceScreenPreview() {
 fun PreviewReminisceScreen(modifier: Modifier = Modifier,
                         remnants: SnapshotStateList<RemnantModel>
 ) {
-    var paymentType by remember { mutableStateOf("Paypal") }
-    var paymentAmount by remember { mutableIntStateOf(10) }
-    var paymentMessage by remember { mutableStateOf("This was nice.") }
-    var totalReminisced by remember { mutableIntStateOf(0) }
-
-    totalReminisced = remnants.sumOf { it.paymentAmount }
+    var remnantType by remember { mutableStateOf("Funny") }
+    var remnantMessage by remember { mutableStateOf("This was nice.") }
 
     Column {
         Column(
@@ -117,26 +99,18 @@ fun PreviewReminisceScreen(modifier: Modifier = Modifier,
             {
                 RadioButtonGroup(
                     modifier = modifier,
-                    onPaymentTypeChange = { paymentType = it }
+                    onRemnantTypeChange = { remnantType = it }
                 )
                 Spacer(modifier.weight(1f))
-                AmountPicker(
-                    onPaymentAmountChange = { paymentAmount = it }
-                )
             }
-            ProgressBar(
-                modifier = modifier,
-                totalReminisced = totalReminisced)
             MessageInput(
                 modifier = modifier,
-                onMessageChange = { paymentMessage = it }
+                onMessageChange = { remnantMessage = it }
             )
             ReminisceButton (
                 modifier = modifier,
-                remnant = RemnantModel(paymentType = paymentType,
-                    paymentAmount = paymentAmount,
-                    message = paymentMessage),
-                onTotalReminiscedChange = { totalReminisced = it }
+                remnant = RemnantModel(remnantType = remnantType,
+                    message = remnantMessage),
             )
         }
     }
