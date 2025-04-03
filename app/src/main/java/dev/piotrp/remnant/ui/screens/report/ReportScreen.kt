@@ -18,20 +18,32 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.piotrp.remnant.R
-import dev.piotrp.remnant.data.RemnantModel
-import dev.piotrp.remnant.data.fakeRemnants
+import dev.piotrp.remnant.data.model.RemnantModel
+import dev.piotrp.remnant.data.model.fakeRemnants
 import dev.piotrp.remnant.ui.components.general.Centre
+import dev.piotrp.remnant.ui.components.general.ShowError
+import dev.piotrp.remnant.ui.components.general.ShowLoader
 import dev.piotrp.remnant.ui.components.report.RemnantCardList
 import dev.piotrp.remnant.ui.components.report.ReportText
 import dev.piotrp.remnant.ui.theme.RemnantTheme
+import timber.log.Timber
 
 
 @Composable
 fun ReportScreen(modifier: Modifier = Modifier,
-                 onClickRemnantDetails: (Int) -> Unit,
+                 onClickRemnantDetails: (String) -> Unit,
                  reportViewModel: ReportViewModel = hiltViewModel()) {
 
     val remnants = reportViewModel.uiRemnants.collectAsState().value
+    val isError = reportViewModel.iserror.value
+    val error = reportViewModel.error.value
+    val isLoading = reportViewModel.isloading.value
+
+    Timber.i("RS : Remnants List = $remnants")
+
+//    LaunchedEffect(Unit) {
+//        reportViewModel.getRemnants()
+//    }
 
     Column {
         Column(
@@ -40,10 +52,14 @@ fun ReportScreen(modifier: Modifier = Modifier,
                 end = 24.dp
             ),
         ) {
+            if(isLoading) ShowLoader("Loading Remnants...")
             ReportText()
-            if(remnants.isEmpty())
+//            if(!isError)
+//                ShowRefreshList(onClick = { reportViewModel.getRemnants() })
+            if (remnants.isEmpty() && !isError)
                 Centre(Modifier.fillMaxSize()) {
-                    Text(color = MaterialTheme.colorScheme.secondary,
+                    Text(
+                        color = MaterialTheme.colorScheme.secondary,
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp,
                         lineHeight = 34.sp,
@@ -51,16 +67,23 @@ fun ReportScreen(modifier: Modifier = Modifier,
                         text = stringResource(R.string.empty_list)
                     )
                 }
-            else
+            if (!isError) {
                 RemnantCardList(
                     remnants = remnants,
                     onClickRemnantDetails = onClickRemnantDetails,
-                    onDeleteRemnant = {
-                            remnant: RemnantModel ->
-                                reportViewModel.deleteRemnant(remnant)
-                    }
+                    onDeleteRemnant = { remnant: RemnantModel ->
+                        reportViewModel.deleteRemnant(remnant)
+                    },
+                   // onRefreshList = { reportViewModel.getRemnants() }
                 )
+            }
+            if (isError) {
+                ShowError(headline = error.message!! + " error...",
+                    subtitle = error.toString(),
+                    onClick = { reportViewModel.getRemnants() })
+            }
         }
+
     }
 }
 
@@ -75,8 +98,9 @@ fun ReportScreenPreview() {
 }
 
 @Composable
-fun PreviewReportScreen(modifier: Modifier = Modifier,
-                        remnants: SnapshotStateList<RemnantModel>
+fun PreviewReportScreen(
+    modifier: Modifier = Modifier,
+    remnants: SnapshotStateList<RemnantModel>
 ) {
 
     Column {
@@ -100,9 +124,8 @@ fun PreviewReportScreen(modifier: Modifier = Modifier,
             else
                 RemnantCardList(
                     remnants = remnants,
-                    onDeleteRemnant = {},
-                    onClickRemnantDetails = { }
-                )
+                    onDeleteRemnant = {}
+                ) { }
         }
     }
 }

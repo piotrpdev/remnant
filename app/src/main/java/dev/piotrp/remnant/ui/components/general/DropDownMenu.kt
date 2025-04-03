@@ -23,10 +23,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import dev.piotrp.remnant.navigation.About
 import dev.piotrp.remnant.ui.theme.RemnantTheme
-
 @Composable
-fun DropDownMenu() {
+fun DropDownMenu(navController: NavController) {
 
     var expanded by remember { mutableStateOf(false) }
     var selectedOptionText by remember { mutableStateOf("Help") }
@@ -34,7 +36,7 @@ fun DropDownMenu() {
     Box(
         contentAlignment = Alignment.Center,
 
-    ) {
+        ) {
         // 3 vertical dots icon
         IconButton(onClick = {
             expanded = true
@@ -64,6 +66,7 @@ fun DropDownMenu() {
                 onClick = {
                     selectedOptionText = "Info"
                     expanded = false
+                    navController.navigate(About.route)
                 },
             )
         }
@@ -74,6 +77,6 @@ fun DropDownMenu() {
 @Composable
 fun DropDownMenuPreview() {
     RemnantTheme {
-        DropDownMenu()
+        DropDownMenu(navController = rememberNavController())
     }
 }

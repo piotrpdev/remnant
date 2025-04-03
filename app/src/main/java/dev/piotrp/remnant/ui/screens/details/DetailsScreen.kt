@@ -1,6 +1,7 @@
 package dev.piotrp.remnant.ui.screens.details
 
 import android.annotation.SuppressLint
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -29,14 +30,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import dev.piotrp.remnant.data.RemnantModel
+import dev.piotrp.remnant.data.model.RemnantModel
 import dev.piotrp.remnant.ui.components.details.DetailsScreenText
 import dev.piotrp.remnant.ui.components.details.ReadOnlyTextField
+import dev.piotrp.remnant.ui.components.general.ShowLoader
 import dev.piotrp.remnant.ui.theme.RemnantTheme
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -45,7 +48,7 @@ fun DetailsScreen(
     modifier: Modifier = Modifier,
     detailViewModel: DetailsViewModel = hiltViewModel()
 ) {
-    var remnant = detailViewModel.remnant.value
+    val remnant = detailViewModel.remnant.value
     val errorEmptyMessage = "Message Cannot be Empty..."
     val errorShortMessage = "Message must be at least 2 characters"
     var text by rememberSaveable { mutableStateOf("") }
@@ -53,16 +56,27 @@ fun DetailsScreen(
     var isEmptyError by rememberSaveable { mutableStateOf(false) }
     var isShortError by rememberSaveable { mutableStateOf(false) }
 
+    val context = LocalContext.current
+    val isError = detailViewModel.isErr.value
+    val error = detailViewModel.error.value
+    val isLoading = detailViewModel.isLoading.value
+
+    if(isLoading) ShowLoader("Retrieving Remnant Details...")
+
     fun validate(text: String) {
         isEmptyError = text.isEmpty()
         isShortError = text.length < 2
         onMessageChanged = !(isEmptyError || isShortError)
     }
 
-    Column(modifier = modifier.padding(
-        start = 24.dp,
-        end = 24.dp,
-    ),
+    if(isError)
+        Toast.makeText(context,"Unable to fetch Details at this Time...",
+            Toast.LENGTH_SHORT).show()
+    if(!isError && !isLoading)
+        Column(modifier = modifier.padding(
+            start = 24.dp,
+            end = 24.dp,
+        ),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
         DetailsScreenText()
@@ -74,9 +88,12 @@ fun DetailsScreen(
             ),
         )
         {
-            //Remnant Type Field
-            ReadOnlyTextField(value = remnant.remnantType,
-                label = "Remnant Type")
+            //Payment Type Field
+            ReadOnlyTextField(value = remnant.paymentType,
+                label = "Payment Type")
+            //Payment Amount Field
+            ReadOnlyTextField(value = "€" + remnant.paymentAmount.toString(),
+                label = "Payment Amount")
             //Date Reminisced Field
             ReadOnlyTextField(value = remnant.dateReminisced.toString(),
                 label = "Date Reminisced")
@@ -190,11 +207,21 @@ fun PreviewDetailScreen(modifier: Modifier) {
                 ),
         )
         {
-            //Remnant Type Field
+            //Payment Type Field
             OutlinedTextField(modifier = modifier.fillMaxWidth(),
-                value = remnant.remnantType,
+                value = remnant.paymentType,
                 onValueChange = { },
-                label = { Text(text = "Remnant Type") },
+                label = { Text(text = "Payment Type") },
+                readOnly = true,
+                colors = OutlinedTextFieldDefaults.colors(
+                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
+                )
+            )
+            //Payment Amount Field
+            OutlinedTextField(modifier = modifier.fillMaxWidth(),
+                value = "€" + remnant.paymentAmount.toString(),
+                onValueChange = { },
+                label = { Text(text = "Payment Amount") },
                 readOnly = true,
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = MaterialTheme.colorScheme.secondary,

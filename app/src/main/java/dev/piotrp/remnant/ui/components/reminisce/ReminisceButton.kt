@@ -28,8 +28,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import dev.piotrp.remnant.R
-import dev.piotrp.remnant.data.RemnantModel
-import dev.piotrp.remnant.data.fakeRemnants
+import dev.piotrp.remnant.data.model.RemnantModel
+import dev.piotrp.remnant.data.model.fakeRemnants
 import dev.piotrp.remnant.ui.screens.reminisce.RemnantViewModel
 import dev.piotrp.remnant.ui.screens.report.ReportViewModel
 import dev.piotrp.remnant.ui.theme.RemnantTheme
@@ -41,16 +41,30 @@ fun ReminisceButton(
     remnant: RemnantModel,
     remnantViewModel: RemnantViewModel = hiltViewModel(),
     reportViewModel: ReportViewModel = hiltViewModel(),
+    onTotalReminiscedChange: (Int) -> Unit
 ) {
     val remnants = reportViewModel.uiRemnants.collectAsState().value
+    var totalReminisced = remnants.sumOf { it.paymentAmount }
     val context = LocalContext.current
+    val message = stringResource(R.string.limitExceeded, remnant.paymentAmount)
+
+    val isError = remnantViewModel.isErr.value
+    val error = remnantViewModel.error.value
+  //  val isLoading = RemnantViewModel.isLoading.value
+
+  //  if(isLoading) ShowLoader("Trying to Reminisce...")
 
     Row {
         Button(
             onClick = {
-                remnantViewModel.insert(remnant)
-                Timber.i("Remnant info : $remnant")
-                Timber.i("Remnant List info : ${remnants.toList()}")
+                if(totalReminisced + remnant.paymentAmount <= 10000) {
+                    totalReminisced+= remnant.paymentAmount
+                    onTotalReminiscedChange(totalReminisced)
+                    remnantViewModel.insert(remnant)
+                }
+                else
+                    Toast.makeText(context,message,
+                        Toast.LENGTH_SHORT).show()
             },
             elevation = ButtonDefaults.buttonElevation(20.dp)
         ) {
@@ -63,7 +77,38 @@ fun ReminisceButton(
                 color = Color.White
             )
         }
+        Spacer(modifier.weight(1f))
+        Text(
+            buildAnnotatedString {
+                withStyle(
+                    style = SpanStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        color = Color.Black
+                    )
+                ) {
+                    append(stringResource(R.string.total) + " €")
+                }
+
+
+                withStyle(
+                    style = SpanStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        color = MaterialTheme.colorScheme.secondary)
+                ) {
+                    append(totalReminisced.toString())
+                }
+            })
     }
+
+    Timber.i("DVM Button = : ${error.message}")
+    //Required to refresh our 'totalReminisced'
+    if(isError)
+        Toast.makeText(context,"Unable to Reminisce at this Time...",
+            Toast.LENGTH_SHORT).show()
+    else
+        reportViewModel.getRemnants()
 }
 
 @Preview(showBackground = true)
@@ -74,7 +119,7 @@ fun ReminisceButtonPreview() {
             Modifier,
             RemnantModel(),
             remnants = fakeRemnants.toMutableStateList()
-        )
+        ) {}
     }
 }
 
@@ -83,15 +128,26 @@ fun PreviewReminisceButton(
     modifier: Modifier = Modifier,
     remnant: RemnantModel,
     remnants: SnapshotStateList<RemnantModel>,
+    onTotalReminiscedChange: (Int) -> Unit
 ) {
+
+    var totalReminisced = remnants.sumOf { it.paymentAmount }
     val context = LocalContext.current
+    val message = stringResource(R.string.limitExceeded, remnant.paymentAmount)
 
     Row {
         Button(
             onClick = {
-                remnants.add(remnant)
-                Timber.i("Remnant info : $remnant")
-                Timber.i("Remnant List info : ${remnants.toList()}")
+                if(totalReminisced + remnant.paymentAmount <= 10000) {
+                    totalReminisced+= remnant.paymentAmount
+                    onTotalReminiscedChange(totalReminisced)
+                    remnants.add(remnant)
+                    Timber.i("Remnant info : $remnant")
+                    Timber.i("Remnant List info : ${remnants.toList()}")
+                }
+                else
+                    Toast.makeText(context,message,
+                        Toast.LENGTH_SHORT).show()
             },
             elevation = ButtonDefaults.buttonElevation(20.dp)
         ) {
@@ -104,5 +160,28 @@ fun PreviewReminisceButton(
                 color = Color.White
             )
         }
+        Spacer(modifier.weight(1f))
+        Text(
+            buildAnnotatedString {
+                withStyle(
+                    style = SpanStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        color = Color.Black
+                    )
+                ) {
+                    append(stringResource(R.string.total) + " €")
+                }
+
+
+                withStyle(
+                    style = SpanStyle(
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp,
+                        color = MaterialTheme.colorScheme.secondary)
+                ) {
+                    append(totalReminisced.toString())
+                }
+            })
     }
 }

@@ -29,6 +29,16 @@ fun AboutScreen(modifier: Modifier = Modifier) {
     Column(
             modifier = modifier.background(MaterialTheme.colorScheme.secondary),
         ) {
+            Centre(Modifier
+                    .fillMaxWidth()
+                .padding(top = 48.dp,)
+            ) {
+                Image(
+                    painter = painterResource(id = R.drawable.aboutus_homer),
+                    contentDescription = "homer image",
+                    modifier = Modifier.size(350.dp)
+                )
+            }
             Centre(Modifier.fillMaxSize()) {
                 Text(color = Color.White,
                     fontWeight = FontWeight.Bold,

@@ -22,29 +22,29 @@ import dev.piotrp.remnant.ui.theme.RemnantTheme
 
 @Composable
 fun RadioButtonGroup(modifier: Modifier = Modifier,
-                     onRemnantTypeChange: (String) -> Unit) {
+                     onPaymentTypeChange: (String) -> Unit) {
 
     val radioOptions = listOf(
-        stringResource(R.string.funny),
-        stringResource(R.string.romantic)
+        stringResource(R.string.paypal),
+        stringResource(R.string.direct)
     )
-    var remnantType by remember { mutableStateOf(radioOptions[0]) }
+    var paymentType by remember { mutableStateOf(radioOptions[0]) }
 
     Column(
         modifier = modifier,
         verticalArrangement = Arrangement.spacedBy(2.dp)
     ){
-        radioOptions.forEach { remnantText ->
+        radioOptions.forEach { paymentText ->
             Row(verticalAlignment = Alignment.CenterVertically) {
                 RadioButton(
-                    selected = (remnantText == remnantType),
+                    selected = (paymentText == paymentType),
                     onClick = {
-                        remnantType = remnantText
-                        onRemnantTypeChange(remnantType)
+                        paymentType = paymentText
+                        onPaymentTypeChange(paymentType)
                     }
                 )
                 Text(
-                    text = remnantText,
+                    text = paymentText,
                     fontSize = 20.sp,
                     modifier = Modifier.padding(start = 8.dp)
                 )
@@ -60,7 +60,7 @@ fun RadioButtonPreview() {
     RemnantTheme {
         RadioButtonGroup(
             Modifier,
-            onRemnantTypeChange = {}
+            onPaymentTypeChange = {}
         )
     }
 }
