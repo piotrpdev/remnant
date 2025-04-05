@@ -12,6 +12,7 @@ import dev.piotrp.remnant.ui.screens.details.DetailsScreen
 import dev.piotrp.remnant.ui.screens.reminisce.ReminisceScreen
 import dev.piotrp.remnant.ui.screens.home.HomeScreen
 import dev.piotrp.remnant.ui.screens.login.LoginScreen
+import dev.piotrp.remnant.ui.screens.map.MapScreen
 import dev.piotrp.remnant.ui.screens.profile.ProfileScreen
 import dev.piotrp.remnant.ui.screens.register.RegisterScreen
 import dev.piotrp.remnant.ui.screens.report.ReportScreen
@@ -21,7 +22,8 @@ fun NavHostProvider(
     modifier: Modifier = Modifier,
     navController: NavHostController,
     startDestination: AppDestination,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    permissions: Boolean
 ) {
     NavHost(
         navController = navController,
@@ -87,6 +89,11 @@ fun NavHostProvider(
                     }
                 },
             )
+        }
+
+        composable(route = Map.route) {
+            //call our 'Map' Screen Here
+            MapScreen(permissions = permissions)
         }
     }
 }

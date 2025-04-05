@@ -442,7 +442,7 @@ fun ClickableLoginTextComponent(tryingToLogin: Boolean = true, onTextSelected: (
 //
 //            annotatedString.getStringAnnotations(offset, offset)
 //                .firstOrNull()?.also { span ->
-//                    Log.d("ClickableTextComponent", "{${span.item}}")
+//                    Timber.tag("ClickableTextComponent").d("{${span.item}}")
 //
 //                    if (span.item == loginText) {
 //                        onTextSelected(span.item)

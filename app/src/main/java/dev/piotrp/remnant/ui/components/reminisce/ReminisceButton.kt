@@ -12,6 +12,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
@@ -31,6 +32,7 @@ import dev.piotrp.remnant.R
 import dev.piotrp.remnant.data.model.RemnantModel
 import dev.piotrp.remnant.data.model.fakeRemnants
 import dev.piotrp.remnant.ui.screens.reminisce.RemnantViewModel
+import dev.piotrp.remnant.ui.screens.map.MapViewModel
 import dev.piotrp.remnant.ui.screens.report.ReportViewModel
 import dev.piotrp.remnant.ui.theme.RemnantTheme
 import timber.log.Timber
@@ -41,6 +43,7 @@ fun ReminisceButton(
     remnant: RemnantModel,
     remnantViewModel: RemnantViewModel = hiltViewModel(),
     reportViewModel: ReportViewModel = hiltViewModel(),
+    mapViewModel: MapViewModel = hiltViewModel(),
     onTotalReminiscedChange: (Int) -> Unit
 ) {
     val remnants = reportViewModel.uiRemnants.collectAsState().value
@@ -50,9 +53,14 @@ fun ReminisceButton(
 
     val isError = remnantViewModel.isErr.value
     val error = remnantViewModel.error.value
-  //  val isLoading = RemnantViewModel.isLoading.value
+    val locationLatLng = mapViewModel.currentLatLng.collectAsState().value
 
-  //  if(isLoading) ShowLoader("Trying to Reminisce...")
+    LaunchedEffect(mapViewModel.currentLatLng){
+        mapViewModel.getLocationUpdates()
+    }
+
+    Timber.i("REMINISCE BUTTON LAT/LNG COORDINATES " +
+            "lat/Lng: " + "$locationLatLng ")
 
     Row {
         Button(
@@ -60,7 +68,11 @@ fun ReminisceButton(
                 if(totalReminisced + remnant.paymentAmount <= 10000) {
                     totalReminisced+= remnant.paymentAmount
                     onTotalReminiscedChange(totalReminisced)
-                    remnantViewModel.insert(remnant)
+                    val remnantLatLng = remnant.copy(
+                        latitude = locationLatLng.latitude,
+                        longitude = locationLatLng.longitude
+                    )
+                    remnantViewModel.insert(remnantLatLng)
                 }
                 else
                     Toast.makeText(context,message,
