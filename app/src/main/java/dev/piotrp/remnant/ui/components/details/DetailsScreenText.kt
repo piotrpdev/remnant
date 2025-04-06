@@ -29,7 +29,7 @@ fun DetailsScreenText(modifier: Modifier = Modifier) {
             color = Color.Black
         )
         Text(
-            text = "Please Update your Message Below",
+            text = "Please Update your Note Below",
             fontWeight = FontWeight.Bold,
             fontSize = 20.sp,
             color = MaterialTheme.colorScheme.tertiary

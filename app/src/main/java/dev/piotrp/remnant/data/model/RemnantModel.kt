@@ -7,10 +7,9 @@ import java.util.Date
 @Entity
 data class RemnantModel(
     @DocumentId val _id: String = "N/A",
-    val paymentType: String = "N/A",
-    val paymentAmount: Int = 0,
-    var message: String = "Go Homer!",
-    val dateReminisced: Date = Date(),
+    val type: String = "N/A",
+    var note: String = "Saw Bigfoot here.",
+    val dateCreated: Date = Date(),
     val dateModified: Date = Date(),
     var email: String = "joe@bloggs.com",
     var imageUri: String = "",
@@ -21,10 +20,13 @@ data class RemnantModel(
 val fakeRemnants = List(30) { i ->
     RemnantModel(
         _id = "12345" + i,
-        "PayPal $i",
-        i.toInt(),
-        "Message $i",
-        Date(),
-        Date()
+        type = "Funny $i",
+        note = "Note $i",
+        dateCreated = Date(),
+        dateModified = Date(),
+        email = "joe" + i + "@bloggs.com",
+        imageUri = "",
+        latitude = 0.0,
+        longitude = 0.0
     )
 }

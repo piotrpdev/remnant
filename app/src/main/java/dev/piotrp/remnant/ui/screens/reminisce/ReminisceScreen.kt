@@ -34,13 +34,9 @@ import dev.piotrp.remnant.ui.theme.RemnantTheme
 fun ReminisceScreen(modifier: Modifier = Modifier,
                     reportViewModel: ReportViewModel = hiltViewModel()
 ) {
-    var paymentType by remember { mutableStateOf("Paypal") }
-    var paymentAmount by remember { mutableIntStateOf(10) }
-    var paymentMessage by remember { mutableStateOf("Go Homer!") }
-    var totalReminisced by remember { mutableIntStateOf(0) }
+    var paymentType by remember { mutableStateOf("Funny") }
+    var paymentMessage by remember { mutableStateOf("Found Bigfoot here.") }
     val remnants = reportViewModel.uiRemnants.collectAsState().value
-
-    totalReminisced = remnants.sumOf { it.paymentAmount }
 
     Column {
         Column(
@@ -59,24 +55,15 @@ fun ReminisceScreen(modifier: Modifier = Modifier,
                     modifier = modifier,
                     onPaymentTypeChange = { paymentType = it }
                 )
-                Spacer(modifier.weight(1f))
-                AmountPicker(
-                    onPaymentAmountChange = { paymentAmount = it }
-                )
             }
-            ProgressBar(
-                modifier = modifier,
-                totalReminisced = totalReminisced)
             MessageInput(
                 modifier = modifier,
                 onMessageChange = { paymentMessage = it }
             )
             ReminisceButton (
                 modifier = modifier,
-                remnant = RemnantModel(paymentType = paymentType,
-                    paymentAmount = paymentAmount,
-                    message = paymentMessage),
-                onTotalReminiscedChange = { totalReminisced = it }
+                remnant = RemnantModel(type = paymentType,
+                    note = paymentMessage),
             )
         }
     }
@@ -96,12 +83,8 @@ fun PreviewReminisceScreen(
     modifier: Modifier = Modifier,
     remnants: SnapshotStateList<RemnantModel>
 ) {
-    var paymentType by remember { mutableStateOf("Paypal") }
-    var paymentAmount by remember { mutableIntStateOf(10) }
-    var paymentMessage by remember { mutableStateOf("Go Homer!") }
-    var totalReminisced by remember { mutableIntStateOf(0) }
-
-    totalReminisced = remnants.sumOf { it.paymentAmount }
+    var paymentType by remember { mutableStateOf("Funny") }
+    var paymentMessage by remember { mutableStateOf("Found Bigfoot here.") }
 
     Column {
         Column(
@@ -120,24 +103,15 @@ fun PreviewReminisceScreen(
                     modifier = modifier,
                     onPaymentTypeChange = { paymentType = it }
                 )
-                Spacer(modifier.weight(1f))
-                AmountPicker(
-                    onPaymentAmountChange = { paymentAmount = it }
-                )
             }
-            ProgressBar(
-                modifier = modifier,
-                totalReminisced = totalReminisced)
             MessageInput(
                 modifier = modifier,
                 onMessageChange = { paymentMessage = it }
             )
             ReminisceButton (
                 modifier = modifier,
-                remnant = RemnantModel(paymentType = paymentType,
-                    paymentAmount = paymentAmount,
-                    message = paymentMessage),
-                onTotalReminiscedChange = { totalReminisced = it }
+                remnant = RemnantModel(type = paymentType,
+                    note = paymentMessage),
             )
         }
     }

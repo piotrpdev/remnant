@@ -49,8 +49,8 @@ fun DetailsScreen(
     detailViewModel: DetailsViewModel = hiltViewModel()
 ) {
     val remnant = detailViewModel.remnant.value
-    val errorEmptyMessage = "Message Cannot be Empty..."
-    val errorShortMessage = "Message must be at least 2 characters"
+    val errorEmptyMessage = "Note Cannot be Empty..."
+    val errorShortMessage = "Note must be at least 2 characters"
     var text by rememberSaveable { mutableStateOf("") }
     var onMessageChanged by rememberSaveable { mutableStateOf(false) }
     var isEmptyError by rememberSaveable { mutableStateOf(false) }
@@ -89,25 +89,22 @@ fun DetailsScreen(
         )
         {
             //Payment Type Field
-            ReadOnlyTextField(value = remnant.paymentType,
+            ReadOnlyTextField(value = remnant.type,
                 label = "Payment Type")
-            //Payment Amount Field
-            ReadOnlyTextField(value = "€" + remnant.paymentAmount.toString(),
-                label = "Payment Amount")
             //Date Reminisced Field
-            ReadOnlyTextField(value = remnant.dateReminisced.toString(),
+            ReadOnlyTextField(value = remnant.dateCreated.toString(),
                 label = "Date Reminisced")
             //Message Field
-            text = remnant.message
+            text = remnant.note
             OutlinedTextField(modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text = it
                     validate(text)
-                    remnant.message = text
+                    remnant.note = text
                 },
                 maxLines = 2,
-                label = { Text(text = "Message") },
+                label = { Text(text = "Note") },
                 isError = isEmptyError || isShortError,
                 supportingText = {
                     if (isEmptyError) {
@@ -175,8 +172,8 @@ fun DetailScreenPreview() {
 fun PreviewDetailScreen(modifier: Modifier) {
 
     val remnant = RemnantModel()
-    val errorEmptyMessage = "Message Cannot be Empty..."
-    val errorShortMessage = "Message must be at least 2 characters"
+    val errorEmptyMessage = "Note Cannot be Empty..."
+    val errorShortMessage = "Note must be at least 2 characters"
     var text by rememberSaveable { mutableStateOf("") }
     var onMessageChanged by rememberSaveable { mutableStateOf(false) }
     var isEmptyError by rememberSaveable { mutableStateOf(false) }
@@ -209,19 +206,9 @@ fun PreviewDetailScreen(modifier: Modifier) {
         {
             //Payment Type Field
             OutlinedTextField(modifier = modifier.fillMaxWidth(),
-                value = remnant.paymentType,
+                value = remnant.type,
                 onValueChange = { },
-                label = { Text(text = "Payment Type") },
-                readOnly = true,
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
-                )
-            )
-            //Payment Amount Field
-            OutlinedTextField(modifier = modifier.fillMaxWidth(),
-                value = "€" + remnant.paymentAmount.toString(),
-                onValueChange = { },
-                label = { Text(text = "Payment Amount") },
+                label = { Text(text = "Remnant Type") },
                 readOnly = true,
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
@@ -229,7 +216,7 @@ fun PreviewDetailScreen(modifier: Modifier) {
             )
             //Date Reminisced Field
             OutlinedTextField(modifier = modifier.fillMaxWidth(),
-                value = remnant.dateReminisced.toString(),
+                value = remnant.dateCreated.toString(),
                 onValueChange = { },
                 label = { Text(text = "Date Reminisced") },
                 readOnly = true,
@@ -239,13 +226,13 @@ fun PreviewDetailScreen(modifier: Modifier) {
             )
             //  Log.i("VM Call","Message is : ${remnant.message}")
             //Message Field
-            text = remnant.message
+            text = remnant.note
             OutlinedTextField(modifier = Modifier.fillMaxWidth(),
                 value = text,
                 onValueChange = {
                     text = it
                     validate(text)
-                    remnant.message = text
+                    remnant.note = text
                 },
                 maxLines = 2,
                 label = { Text(text = "Message") },

@@ -25,8 +25,8 @@ fun RadioButtonGroup(modifier: Modifier = Modifier,
                      onPaymentTypeChange: (String) -> Unit) {
 
     val radioOptions = listOf(
-        stringResource(R.string.paypal),
-        stringResource(R.string.direct)
+        stringResource(R.string.funny),
+        stringResource(R.string.happy)
     )
     var paymentType by remember { mutableStateOf(radioOptions[0]) }
 

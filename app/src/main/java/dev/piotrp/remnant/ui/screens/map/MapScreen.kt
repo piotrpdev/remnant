@@ -80,8 +80,8 @@ fun MapScreen(
                             val position = LatLng(it.latitude,it.longitude)
                             MarkerComposable(
                                     state = MarkerState(position = position),
-                                    title = it.paymentType + " €" + it.paymentAmount,
-                                    snippet = it.message
+                                    title = it.type,
+                                    snippet = it.note
                                             ) { CustomMarker() }
                             }
                     }

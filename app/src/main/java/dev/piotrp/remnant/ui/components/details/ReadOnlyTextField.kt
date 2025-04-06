@@ -27,6 +27,6 @@ fun ReadOnlyTextField(value: String, label: String) {
 @Composable
 fun ReadOnlyTextFieldPreview() {
     RemnantTheme {
-        ReadOnlyTextField("My Message","My Title")
+        ReadOnlyTextField("My Note","My Title")
     }
 }
