@@ -48,7 +48,7 @@ class AuthRepository
     }
     override suspend fun createUser(name: String, email: String, password: String): FirebaseSignInResponse {
         return try {
-            val uri = Uri.parse("android.resource://dev.piotrp.remnant/drawable/aboutus_homer")
+            val uri = Uri.parse("android.resource://dev.piotrp.remnant/drawable/tramore")
             val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
             result.user?.updateProfile(UserProfileChangeRequest
                 .Builder()

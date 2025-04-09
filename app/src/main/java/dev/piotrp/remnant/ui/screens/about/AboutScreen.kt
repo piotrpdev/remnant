@@ -34,8 +34,8 @@ fun AboutScreen(modifier: Modifier = Modifier) {
                 .padding(top = 48.dp,)
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.aboutus_homer),
-                    contentDescription = "homer image",
+                    painter = painterResource(id = R.drawable.tramore),
+                    contentDescription = "Tramore image",
                     modifier = Modifier.size(350.dp)
                 )
             }
