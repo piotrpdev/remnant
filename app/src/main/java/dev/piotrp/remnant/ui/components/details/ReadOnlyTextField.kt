@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.details
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -24,6 +25,7 @@ fun ReadOnlyTextField(value: String, label: String) {
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ReadOnlyTextFieldPreview() {
     RemnantTheme {

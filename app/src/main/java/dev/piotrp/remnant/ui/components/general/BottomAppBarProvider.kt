@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.general
 
+import android.content.res.Configuration
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -31,20 +32,20 @@ fun BottomAppBarProvider(
     var navigationSelectedItem by remember { mutableIntStateOf(0) }
 
     NavigationBar(
-        containerColor = MaterialTheme.colorScheme.primary,
-        contentColor = MaterialTheme.colorScheme.onSecondary,
+//        containerColor = MaterialTheme.colorScheme.primary,
+//        contentColor = MaterialTheme.colorScheme.onSecondary,
         ) {
         //getting the list of bottom navigation items
         userDestinations.forEachIndexed { index, navigationItem ->
             //iterating all items with their respective indexes
             NavigationBarItem(
                 selected = navigationItem == currentScreen,
-                colors = NavigationBarItemDefaults.colors(
-                    selectedIconColor = MaterialTheme.colorScheme.secondary,
-                    selectedTextColor = White,
-                    unselectedIconColor = White,
-                    unselectedTextColor = Black
-                ),
+//                colors = NavigationBarItemDefaults.colors(
+//                    selectedIconColor = MaterialTheme.colorScheme.secondary,
+//                    selectedTextColor = White,
+//                    unselectedIconColor = White,
+//                    unselectedTextColor = Black
+//                ),
                 label = { Text(text = navigationItem.label) },
                 icon = { Icon(navigationItem.icon, contentDescription = navigationItem.label) },
                 onClick = {
@@ -63,6 +64,7 @@ fun BottomAppBarProvider(
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun BottomAppBarScreenPreview() {
     RemnantTheme {

@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.screens.details
 
+import android.content.res.Configuration
 import android.annotation.SuppressLint
 import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
@@ -153,7 +154,7 @@ fun DetailsScreen(
                     text = "Save",
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
-                    color = Color.White
+//                    color = Color.White
                 )
             }
         }
@@ -161,6 +162,7 @@ fun DetailsScreen(
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun DetailScreenPreview() {
     RemnantTheme {
@@ -282,7 +284,7 @@ fun PreviewDetailScreen(modifier: Modifier) {
                     text = "Save",
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp,
-                    color = Color.White
+//                    color = Color.White
                 )
             }
         }

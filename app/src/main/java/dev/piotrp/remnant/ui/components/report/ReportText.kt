@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.report
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -27,12 +28,13 @@ fun ReportText(modifier: Modifier = Modifier) {
             text = stringResource(R.string.reportTitle),
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
-            color = Color.Black
+//            color = Color.Black
         )
     }
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ReportPreview() {
     RemnantTheme {

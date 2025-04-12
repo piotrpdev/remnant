@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.reminisce
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,6 +43,7 @@ fun MessageInput(
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun MessagePreview() {
     RemnantTheme {

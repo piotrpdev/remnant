@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.screens.login
 
+import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -56,7 +57,6 @@ fun LoginScreen(
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
                 .padding(28.dp)
         ) {
             Column(
@@ -144,6 +144,7 @@ fun LoginScreen(
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun LoginScreenPreview() {
     RemnantTheme {
@@ -162,7 +163,6 @@ fun PreviewLoginScreen() {
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
                 .padding(28.dp)
         ) {
 

@@ -1,9 +1,11 @@
 package dev.piotrp.remnant.ui.components.details
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -26,7 +28,7 @@ fun DetailsScreenText(modifier: Modifier = Modifier) {
             text = "Remnant Details",
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
-            color = Color.Black
+//            color = Color.Black
         )
         Text(
             text = "Please Update your Note Below",
@@ -38,9 +40,12 @@ fun DetailsScreenText(modifier: Modifier = Modifier) {
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun DetailScreenPreview() {
     RemnantTheme {
-        DetailsScreenText(modifier = Modifier)
+        Surface {
+            DetailsScreenText(modifier = Modifier)
+        }
     }
 }

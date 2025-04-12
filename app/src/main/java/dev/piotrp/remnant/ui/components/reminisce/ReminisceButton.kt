@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.reminisce
 
+import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -76,7 +77,7 @@ fun ReminisceButton(
                 text = stringResource(R.string.reminisceButton),
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp,
-                color = Color.White
+//                color = Color.White
             )
         }
     }
@@ -91,6 +92,7 @@ fun ReminisceButton(
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ReminisceButtonPreview() {
     RemnantTheme {
@@ -126,7 +128,7 @@ fun PreviewReminisceButton(
                 text = stringResource(R.string.reminisceButton),
                 fontWeight = FontWeight.Bold,
                 fontSize = 20.sp,
-                color = Color.White
+//                color = Color.White
             )
         }
     }

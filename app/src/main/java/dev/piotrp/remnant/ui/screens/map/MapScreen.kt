@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.screens.map
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -89,6 +90,7 @@ fun MapScreen(
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun MapScreenPreview() {
     RemnantTheme {

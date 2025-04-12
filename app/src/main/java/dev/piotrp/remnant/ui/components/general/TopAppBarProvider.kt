@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.general
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.size
@@ -42,7 +43,7 @@ fun TopAppBarProvider(
             Column {
                 Text(
                     text = currentScreen.label,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onPrimary,
                 )
                 Row {
                     if (name.isNotEmpty())
@@ -55,7 +56,7 @@ fun TopAppBarProvider(
                     if (email.isNotEmpty())
                         Text(
                             text = " ($email)",
-                            color = Color.LightGray,
+                            color = MaterialTheme.colorScheme.onPrimary,
                             fontSize = 14.sp,
                             fontWeight = FontWeight.Bold
                         )
@@ -71,7 +72,7 @@ fun TopAppBarProvider(
                     Icon(
                         imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                         contentDescription = "Back Button",
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.size(30.dp)
                     )
                 }
@@ -82,7 +83,7 @@ fun TopAppBarProvider(
                     Icon(
                         imageVector = Icons.Default.Menu,
                         contentDescription = null,
-                        tint = Color.White
+                        tint = MaterialTheme.colorScheme.onPrimary,
                     )
                 })
 
@@ -92,6 +93,7 @@ fun TopAppBarProvider(
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun TopAppBarPreview() {
     RemnantTheme {

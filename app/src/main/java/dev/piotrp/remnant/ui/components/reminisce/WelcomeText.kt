@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.reminisce
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -28,7 +29,7 @@ fun WelcomeText(modifier: Modifier = Modifier) {
             text = stringResource(R.string.reminisceTitle),
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
-            color = Color.Black
+//            color = Color.Black
         )
         Text(
             text = stringResource(R.string.reminisceSubtitle),
@@ -40,6 +41,7 @@ fun WelcomeText(modifier: Modifier = Modifier) {
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun WelcomePreview() {
     RemnantTheme {

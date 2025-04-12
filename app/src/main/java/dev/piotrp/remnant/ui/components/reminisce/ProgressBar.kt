@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.reminisce
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -39,6 +40,7 @@ fun ProgressBar(modifier: Modifier = Modifier,
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ProgressBarPreview(){
     RemnantTheme {

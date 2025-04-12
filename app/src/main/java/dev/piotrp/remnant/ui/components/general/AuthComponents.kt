@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.general
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -7,7 +8,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Menu
@@ -50,6 +51,7 @@ import dev.piotrp.remnant.data.rules.Constants.SIGN_IN_WITH_GOOGLE
 import dev.piotrp.remnant.ui.theme.*
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun RemnantCardPreview() {
     RemnantTheme {
@@ -127,7 +129,8 @@ fun NormalTextComponent(value: String) {
             fontSize = 24.sp,
             fontWeight = FontWeight.Normal,
             fontStyle = FontStyle.Normal
-        ), color = colorResource(id = R.color.black),
+        ),
+//        color = MaterialTheme.colorScheme.onSurface,
         textAlign = TextAlign.Center
     )
 }
@@ -143,7 +146,8 @@ fun HeadingTextComponent(value: String) {
             fontSize = 30.sp,
             fontWeight = FontWeight.Bold,
             fontStyle = FontStyle.Normal
-        ), color = colorResource(id = R.color.black),
+        ),
+//        color = MaterialTheme.colorScheme.onSurface,
         textAlign = TextAlign.Center
     )
 }
@@ -188,11 +192,6 @@ fun MyTextFieldComponent(
             .fillMaxWidth()
             .clip(RoundedCornerShape(4.dp)),
         label = { Text(text = labelValue) },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = MaterialTheme.colorScheme.secondary,
-            focusedLabelColor = MaterialTheme.colorScheme.secondary,
-            cursorColor = MaterialTheme.colorScheme.secondary,
-        ),
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
         singleLine = true,
         maxLines = 1,
@@ -230,11 +229,6 @@ fun PasswordTextFieldComponent(
             .fillMaxWidth()
             .clip(RoundedCornerShape(4.dp)),
         label = { Text(text = labelValue) },
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            focusedBorderColor = MaterialTheme.colorScheme.secondary,
-            focusedLabelColor = MaterialTheme.colorScheme.secondary,
-            cursorColor = MaterialTheme.colorScheme.secondary,
-        ),
         keyboardOptions = KeyboardOptions(
             keyboardType = KeyboardType.Password,
             imeAction = ImeAction.Done
@@ -401,13 +395,13 @@ fun DividerTextComponent() {
             modifier = Modifier.padding(8.dp),
             text = stringResource(R.string.or),
             fontSize = 18.sp,
-            color = Color.Black
+//            color = Color.Black
         )
         Divider(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
-            color = Color.Gray,
+//            color = Color.Gray,
             thickness = 1.dp
         )
     }
@@ -464,13 +458,15 @@ fun UnderLinedTextComponent(value: String) {
             fontSize = 16.sp,
             fontWeight = FontWeight.Normal,
             fontStyle = FontStyle.Normal
-        ), color = Color.Gray,
+        ),
+//        color = Color.Gray,
         textAlign = TextAlign.Center,
         textDecoration = TextDecoration.Underline
     )
 
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppToolbar(
     toolbarTitle: String, logoutButtonClicked: () -> Unit,
@@ -478,10 +474,11 @@ fun AppToolbar(
 ) {
 
     TopAppBar(
-        backgroundColor = MaterialTheme.colorScheme.primary,
+//        backgroundColor = MaterialTheme.colorScheme.primary,
         title = {
             Text(
-                text = toolbarTitle, color = Color.White
+                text = toolbarTitle,
+//                color = Color.White
             )
         },
         navigationIcon = {

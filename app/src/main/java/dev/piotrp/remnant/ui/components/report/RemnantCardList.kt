@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.report
 
+import android.content.res.Configuration
 import android.net.Uri
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -42,6 +43,7 @@ internal fun RemnantCardList(
 @Preview(showBackground = true,
     wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE
 )
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun RemnantCardListPreview() {
     RemnantTheme {

@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.screens.reminisce
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -70,6 +71,7 @@ fun ReminisceScreen(modifier: Modifier = Modifier,
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ReminisceScreenPreview() {
     RemnantTheme {

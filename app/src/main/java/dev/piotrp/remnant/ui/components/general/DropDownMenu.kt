@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.general
 
+import android.content.res.Configuration
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
@@ -44,22 +45,25 @@ fun DropDownMenu(navController: NavController) {
             Icon(
                 imageVector = Icons.Default.MoreVert,
                 contentDescription = "Open Info",
-                tint = Color.White,
+                tint = MaterialTheme.colorScheme.onPrimary,
                 modifier = Modifier.size(30.dp)
             )
         }
         DropdownMenu(
-            modifier = Modifier.background(MaterialTheme.colorScheme.secondary),
+            modifier = Modifier.background(MaterialTheme.colorScheme.primary),
             expanded = expanded,
             onDismissRequest = { expanded = false },
         ) {
             DropdownMenuItem(
-                text = { Text(color = Color.White,text = "Info", fontSize = 18.sp) },
+                text = { Text(
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    text = "Info",
+                    fontSize = 18.sp) },
                 trailingIcon = {
                     Icon(
                         imageVector = Icons.Filled.Info,
                         contentDescription = "Info",
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.size(24.dp)
                     )
                 },
@@ -74,6 +78,7 @@ fun DropDownMenu(navController: NavController) {
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun DropDownMenuPreview() {
     RemnantTheme {

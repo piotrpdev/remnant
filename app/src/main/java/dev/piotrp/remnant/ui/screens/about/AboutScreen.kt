@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.screens.about
 
+import android.content.res.Configuration
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -27,7 +28,7 @@ import dev.piotrp.remnant.ui.theme.RemnantTheme
 fun AboutScreen(modifier: Modifier = Modifier) {
 
     Column(
-            modifier = modifier.background(MaterialTheme.colorScheme.secondary),
+//            modifier = modifier.background(MaterialTheme.colorScheme.secondary),
         ) {
             Centre(Modifier
                     .fillMaxWidth()
@@ -40,7 +41,8 @@ fun AboutScreen(modifier: Modifier = Modifier) {
                 )
             }
             Centre(Modifier.fillMaxSize()) {
-                Text(color = Color.White,
+                Text(
+//                    color = Color.White,
                     fontWeight = FontWeight.Bold,
                     fontSize = 30.sp,
                     lineHeight = 34.sp,
@@ -52,6 +54,7 @@ fun AboutScreen(modifier: Modifier = Modifier) {
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun AboutScreenPreview() {
     RemnantTheme {

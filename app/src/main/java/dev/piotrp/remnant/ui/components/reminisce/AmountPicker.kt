@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.reminisce
 
+import android.content.res.Configuration
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -34,6 +35,7 @@ fun AmountPicker(
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun PickerPreview() {
     RemnantTheme {

@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.screens.home
 
+import android.content.res.Configuration
 import android.Manifest
 import android.annotation.SuppressLint
 import androidx.compose.material3.Scaffold
@@ -99,6 +100,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun MyAppPreview() {
     RemnantTheme {

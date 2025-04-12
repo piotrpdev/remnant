@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.report
 
+import android.content.res.Configuration
 import android.net.Uri
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
@@ -128,21 +129,24 @@ private fun RemnantCardContent(
                         .clip(CircleShape)
                 )
                 Text(
-                    modifier = Modifier.padding(start = 2.dp),
+                    modifier = Modifier.padding(start = 20.dp),
                     text = paymentType,
                     style = MaterialTheme.typography.headlineMedium.copy(
                         fontWeight = FontWeight.ExtraBold
-                    )
+                    ),
+                    color = Color.White
                 )
             }
             Text(
-                text = "Reminisced $dateCreated", style = MaterialTheme.typography.labelSmall
+                text = "Reminisced $dateCreated", style = MaterialTheme.typography.labelSmall,
+                color = Color.White
             )
             Text(
-                text = "Modified $dateModified", style = MaterialTheme.typography.labelSmall
+                text = "Modified $dateModified", style = MaterialTheme.typography.labelSmall,
+                color = Color.White
             )
             if (expanded) {
-                Text(modifier = Modifier.padding(vertical = 16.dp), text = message)
+                Text(modifier = Modifier.padding(vertical = 16.dp), text = message, color = Color.White)
                 Row(modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween) {
                     FilledTonalButton(onClick = onClickRemnantDetails) {
@@ -173,7 +177,8 @@ private fun RemnantCardContent(
                     stringResource(R.string.show_less)
                 } else {
                     stringResource(R.string.show_more)
-                }
+                },
+                tint = Color.White
             )
         }
     }
@@ -204,6 +209,7 @@ fun showDeleteAlert(
 
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun RemnantCardPreview() {
     RemnantTheme {

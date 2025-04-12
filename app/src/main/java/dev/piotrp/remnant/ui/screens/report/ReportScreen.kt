@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.screens.report
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -88,6 +89,7 @@ fun ReportScreen(modifier: Modifier = Modifier,
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun ReportScreenPreview() {
     RemnantTheme {

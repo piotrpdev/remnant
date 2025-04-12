@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.general
 
+import android.content.res.Configuration
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -58,10 +59,10 @@ fun ShowError(headline: String, subtitle: String, onClick: ((Unit) -> Unit)) {
             .fillMaxWidth()
             .padding(vertical = 16.dp)
             .align(Alignment.BottomCenter),
-            colors = ButtonDefaults.buttonColors(
-                contentColor = Color.Black,
-                containerColor = MaterialTheme.colorScheme.primaryContainer
-            ),
+//            colors = ButtonDefaults.buttonColors(
+//                contentColor = Color.Black,
+//                containerColor = MaterialTheme.colorScheme.primaryContainer
+//            ),
             onClick = { onClick.invoke(Unit) }) {
             Text("Retry")
         }
@@ -82,10 +83,10 @@ fun ShowRefreshList(modifier: Modifier = Modifier,
             .fillMaxWidth()
             .padding(vertical = 2.dp)
             .align(Alignment.CenterHorizontally),
-            colors = ButtonDefaults.buttonColors(
-                contentColor = Color.Black,
-                containerColor = MaterialTheme.colorScheme.primaryContainer
-            ),
+//            colors = ButtonDefaults.buttonColors(
+//                contentColor = Color.Black,
+//                containerColor = MaterialTheme.colorScheme.primaryContainer
+//            ),
             onClick = { onClick.invoke(Unit) }) {
             Text("Refresh")
         }
@@ -133,6 +134,7 @@ fun ShowLoader(message: String) {
 }
 
 @Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun UtilsPreview() {
     RemnantTheme {

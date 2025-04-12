@@ -1,10 +1,11 @@
 package dev.piotrp.remnant.ui.screens.register
 
+import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material.CircularProgressIndicator
-import androidx.compose.material.Surface
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -31,6 +32,7 @@ import dev.piotrp.remnant.ui.components.general.MyTextFieldComponent
 import dev.piotrp.remnant.ui.components.general.NormalTextComponent
 import dev.piotrp.remnant.ui.components.general.PasswordTextFieldComponent
 import dev.piotrp.remnant.ui.components.general.ShowLoader
+import dev.piotrp.remnant.ui.theme.RemnantTheme
 
 @Composable
 fun RegisterScreen(
@@ -48,7 +50,7 @@ fun RegisterScreen(
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
+//                .background(Color.White)
                 .padding(28.dp)
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
@@ -81,6 +83,9 @@ fun RegisterScreen(
                     },
                     errorStatus = registerViewModel.registrationUIState.value.passwordError
                 )
+
+                Spacer(modifier = Modifier.height(10.dp))
+
                 CheckboxComponent(value = stringResource(id = dev.piotrp.remnant.R.string.terms_and_conditions),
                     onTextSelected = {},
                     onCheckedChange = {
@@ -88,7 +93,7 @@ fun RegisterScreen(
                     }
                 )
 
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(30.dp))
                 ButtonComponent(
                     value = stringResource(id = dev.piotrp.remnant.R.string.register),
                     onButtonClicked = {
@@ -131,9 +136,12 @@ fun RegisterScreen(
 }
 
 @Preview
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun DefaultPreviewOfSignUpScreen() {
-    PreviewRegisterScreen()
+    RemnantTheme {
+        PreviewRegisterScreen()
+    }
 }
 
 @Composable
@@ -147,7 +155,7 @@ fun PreviewRegisterScreen() {
         Surface(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
+//                .background(Color.White)
                 .padding(28.dp)
         ) {
             Column(modifier = Modifier.fillMaxSize()) {
@@ -186,6 +194,8 @@ fun PreviewRegisterScreen() {
                    // errorStatus = registerViewModel.registrationUIState.value.passwordError
                     errorStatus = true
                 )
+
+                Spacer(modifier = Modifier.height(10.dp))
 
                 CheckboxComponent(value = stringResource(id = dev.piotrp.remnant.R.string.terms_and_conditions),
                     onTextSelected = {
