@@ -3,6 +3,7 @@
         <string name="reminisceTitle">Welcome!</string>
         <string name="reminisceSubtitle">Share a remnant with the world!</string>
         <string name="reminisceButton">Reminisce</string>
+        <string name="capturePhotoButton">Capture Photo</string>
         <string name="funny">Funny</string>
         <string name="happy">Happy</string>
         <string name="reportTitle">Remnants List</string>

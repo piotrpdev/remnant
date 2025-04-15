@@ -37,7 +37,7 @@ class FirestoreRepository
         val remnantWithEmailAndImage =
             remnant.copy(
                 email = email,
-                imageUri = auth.customPhotoUri!!.toString()
+                avatarImageUri = auth.customPhotoUri!!.toString()
             )
 
         firestore.collection(REMNANT_COLLECTION)

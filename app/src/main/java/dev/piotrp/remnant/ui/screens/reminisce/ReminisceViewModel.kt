@@ -1,6 +1,7 @@
 package dev.piotrp.remnant.ui.screens.reminisce
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,7 +13,7 @@ import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
-class RemnantViewModel @Inject
+class ReminisceViewModel @Inject
 constructor(private val repository: FirestoreService,
     private val authService: AuthService)
     : ViewModel() {
@@ -24,7 +25,12 @@ constructor(private val repository: FirestoreService,
         viewModelScope.launch {
         try {
             isLoading.value = true
-            repository.insert(authService.email!!,remnant)
+            val remnantUploadedImg = remnant.copy(
+                remnantImageUri = authService.uploadCustomPhotoUri(
+                    remnant.remnantImageUri.toUri()
+                ).toString()
+            )
+            repository.insert(authService.email!!,remnantUploadedImg)
             isErr.value = false
             isLoading.value = false
         } catch (e: Exception) {

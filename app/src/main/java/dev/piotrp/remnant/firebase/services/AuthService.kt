@@ -24,6 +24,7 @@ interface AuthService {
                 : SignInWithGoogleResponse
     suspend fun authenticateGoogleUser(googleIdToken: String): FirebaseSignInResponse
     suspend fun updatePhoto(uri: Uri) : FirebaseSignInResponse
+    suspend fun uploadCustomPhotoUri(uri: Uri): Uri
 }
 
 

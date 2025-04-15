@@ -12,11 +12,15 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.AlertDialog
@@ -39,10 +43,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -62,7 +68,9 @@ fun RemnantCard(
     dateModified: String,
     onClickDelete: () -> Unit,
     onClickRemnantDetails: () -> Unit,
-    photoUri: Uri
+    defaultExpanded: Boolean = false,
+    photoUri: Uri,
+    remnantPhotoUri: Uri
 ) {
     Card(
         border = BorderStroke(1.dp, Color.Black),
@@ -77,7 +85,9 @@ fun RemnantCard(
             dateModified,
             onClickDelete,
             onClickRemnantDetails,
-            photoUri
+            defaultExpanded,
+            photoUri,
+            remnantPhotoUri
         )
     }
 }
@@ -90,9 +100,11 @@ private fun RemnantCardContent(
     dateModified: String,
     onClickDelete: () -> Unit,
     onClickRemnantDetails: () -> Unit,
-    photoUri: Uri
+    defaultExpanded: Boolean = false,
+    photoUri: Uri,
+    remnantPhotoUri: Uri
 ) {
-    var expanded by remember { mutableStateOf(false) }
+    var expanded by remember { mutableStateOf(defaultExpanded) }
     var showDeleteConfirmDialog by remember { mutableStateOf(false) }
 
     Row(
@@ -114,43 +126,70 @@ private fun RemnantCardContent(
         Column(
             modifier = Modifier
                 .weight(1f)
-                .padding(14.dp)
+                .padding(14.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                AsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(photoUri)
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .size(50.dp)
-                        .clip(CircleShape)
-                )
-                Text(
-                    modifier = Modifier.padding(start = 20.dp),
-                    text = paymentType,
-                    style = MaterialTheme.typography.headlineMedium.copy(
-                        fontWeight = FontWeight.ExtraBold
-                    ),
-                    color = Color.White
-                )
-            }
-            Text(
-                text = "Reminisced $dateCreated", style = MaterialTheme.typography.labelSmall,
-                color = Color.White
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(remnantPhotoUri)
+                    .crossfade(true)
+                    .build(),
+                contentDescription = null,
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier
+                    .height(200.dp)
+                        .clip(shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
             )
             Text(
-                text = "Modified $dateModified", style = MaterialTheme.typography.labelSmall,
+                modifier = Modifier.padding(top = 10.dp),
+                text = paymentType,
+                style = MaterialTheme.typography.labelLarge.copy(
+                    fontWeight = FontWeight.ExtraBold
+                ),
                 color = Color.White
             )
             if (expanded) {
                 Text(modifier = Modifier.padding(vertical = 16.dp), text = message, color = Color.White)
-                Row(modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween) {
-                    FilledTonalButton(onClick = onClickRemnantDetails) {
-                        Text(text = "Show More")
+                Spacer(modifier = Modifier.height(10.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    AsyncImage(
+                        model = ImageRequest.Builder(LocalContext.current)
+                            .data(photoUri)
+                            .crossfade(true)
+                            .build(),
+                        contentDescription = null,
+                        contentScale = ContentScale.Crop,
+                        modifier = Modifier
+                            .size(30.dp)
+                            .clip(CircleShape)
+                    )
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(
+                        text = "Modified $dateModified", style = MaterialTheme.typography.labelSmall,
+                        color = Color.White
+                    )
+                }
+            }
+        }
+        Column {
+            Row {
+                IconButton(onClick = { expanded = !expanded }) {
+                    Icon(
+                        imageVector = if (expanded) Icons.Filled.ExpandLess
+                        else Icons.Filled.ExpandMore,
+                        contentDescription = if (expanded) {
+                            stringResource(R.string.show_less)
+                        } else {
+                            stringResource(R.string.show_more)
+                        },
+                        tint = Color.White
+                    )
+                }
+            }
+            Row {
+                Column {
+                    FilledTonalIconButton(onClick = onClickRemnantDetails) {
+                        Icon(Icons.Filled.Edit, "Edit Remnant")
                     }
 
                     FilledTonalIconButton(onClick = {
@@ -168,18 +207,6 @@ private fun RemnantCardContent(
                     }
                 }
             }
-        }
-        IconButton(onClick = { expanded = !expanded }) {
-            Icon(
-                imageVector = if (expanded) Icons.Filled.ExpandLess
-                                    else Icons.Filled.ExpandMore,
-                contentDescription = if (expanded) {
-                    stringResource(R.string.show_less)
-                } else {
-                    stringResource(R.string.show_more)
-                },
-                tint = Color.White
-            )
         }
     }
 }
@@ -216,14 +243,15 @@ fun RemnantCardPreview() {
         RemnantCard(
             paymentType = "Funny",
             message = """
-                A message entered 
-                by the user..."
+                A message entered by the user, it has a long story about something.
             """.trimIndent(),
             dateCreated = DateFormat.getDateTimeInstance().format(Date()),
             dateModified = DateFormat.getDateTimeInstance().format(Date()),
             onClickDelete = { },
             onClickRemnantDetails = {},
-            photoUri = Uri.EMPTY
+            defaultExpanded = true,
+            photoUri = Uri.parse("android.resource://dev.piotrp.remnant/drawable/tramore"),
+            remnantPhotoUri = Uri.parse("android.resource://dev.piotrp.remnant/drawable/tramore")
         )
     }
 }

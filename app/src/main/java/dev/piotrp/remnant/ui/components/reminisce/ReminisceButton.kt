@@ -10,7 +10,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -18,13 +17,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.SpanStyle
-import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -32,7 +27,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import dev.piotrp.remnant.R
 import dev.piotrp.remnant.data.model.RemnantModel
 import dev.piotrp.remnant.data.model.fakeRemnants
-import dev.piotrp.remnant.ui.screens.reminisce.RemnantViewModel
+import dev.piotrp.remnant.ui.screens.reminisce.ReminisceViewModel
 import dev.piotrp.remnant.ui.screens.map.MapViewModel
 import dev.piotrp.remnant.ui.screens.report.ReportViewModel
 import dev.piotrp.remnant.ui.theme.RemnantTheme
@@ -42,15 +37,15 @@ import timber.log.Timber
 fun ReminisceButton(
     modifier: Modifier = Modifier,
     remnant: RemnantModel,
-    remnantViewModel: RemnantViewModel = hiltViewModel(),
+    reminisceViewModel: ReminisceViewModel = hiltViewModel(),
     reportViewModel: ReportViewModel = hiltViewModel(),
     mapViewModel: MapViewModel = hiltViewModel(),
 ) {
     val remnants = reportViewModel.uiRemnants.collectAsState().value
     val context = LocalContext.current
 
-    val isError = remnantViewModel.isErr.value
-    val error = remnantViewModel.error.value
+    val isError = reminisceViewModel.isErr.value
+    val error = reminisceViewModel.error.value
     val locationLatLng = mapViewModel.currentLatLng.collectAsState().value
 
     LaunchedEffect(mapViewModel.currentLatLng){
@@ -65,9 +60,9 @@ fun ReminisceButton(
             onClick = {
                 val remnantLatLng = remnant.copy(
                     latitude = locationLatLng.latitude,
-                    longitude = locationLatLng.longitude
+                    longitude = locationLatLng.longitude,
                 )
-                remnantViewModel.insert(remnantLatLng)
+                reminisceViewModel.insert(remnantLatLng)
             },
             elevation = ButtonDefaults.buttonElevation(20.dp)
         ) {

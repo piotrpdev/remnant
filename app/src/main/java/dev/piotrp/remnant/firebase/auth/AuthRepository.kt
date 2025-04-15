@@ -108,7 +108,7 @@ class AuthRepository
         }
     }
 
-    private suspend fun uploadCustomPhotoUri(uri: Uri) : Uri {
+    override suspend fun uploadCustomPhotoUri(uri: Uri) : Uri {
         if (uri.toString().isNotEmpty()) {
             val urlTask = storageService.uploadFile(uri = uri, "images")
             val url = urlTask.addOnCompleteListener { task ->

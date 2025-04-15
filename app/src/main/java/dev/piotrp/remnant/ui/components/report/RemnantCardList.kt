@@ -18,6 +18,7 @@ import java.text.DateFormat
 internal fun RemnantCardList(
     remnants: List<RemnantModel>,
     modifier: Modifier = Modifier,
+    defaultExpanded: Boolean = false,
     onDeleteRemnant: (RemnantModel) -> Unit,
     onClickRemnantDetails: (String) -> Unit
 ) {
@@ -33,7 +34,9 @@ internal fun RemnantCardList(
                 dateModified = DateFormat.getDateTimeInstance().format(remnant.dateModified),
                 onClickDelete = { onDeleteRemnant(remnant) },
                 onClickRemnantDetails = { onClickRemnantDetails(remnant._id) },
-                photoUri = Uri.parse(remnant.imageUri)
+                defaultExpanded = defaultExpanded,
+                photoUri = Uri.parse(remnant.avatarImageUri),
+                remnantPhotoUri = Uri.parse(remnant.remnantImageUri)
             )
         }
     }
@@ -49,7 +52,8 @@ fun RemnantCardListPreview() {
     RemnantTheme {
         RemnantCardList(
             fakeRemnants.toMutableStateList(),
+            defaultExpanded = true,
             onDeleteRemnant = {}
         ) { }
     }
-    }
+}

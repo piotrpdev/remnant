@@ -12,9 +12,10 @@ data class RemnantModel(
     val dateCreated: Date = Date(),
     val dateModified: Date = Date(),
     var email: String = "joe@bloggs.com",
-    var imageUri: String = "",
+    var avatarImageUri: String = "",
     var latitude: Double = 0.0,
-    var longitude: Double = 0.0
+    var longitude: Double = 0.0,
+    var remnantImageUri: String = ""
 )
 
 val fakeRemnants = List(30) { i ->
@@ -25,8 +26,9 @@ val fakeRemnants = List(30) { i ->
         dateCreated = Date(),
         dateModified = Date(),
         email = "joe" + i + "@bloggs.com",
-        imageUri = "",
+        avatarImageUri = "",
         latitude = 0.0,
-        longitude = 0.0
+        longitude = 0.0,
+        remnantImageUri = ""
     )
 }
