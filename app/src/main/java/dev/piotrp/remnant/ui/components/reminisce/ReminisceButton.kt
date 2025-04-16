@@ -64,7 +64,10 @@ fun ReminisceButton(
                 )
                 reminisceViewModel.insert(remnantLatLng)
             },
-            elevation = ButtonDefaults.buttonElevation(20.dp)
+            elevation = ButtonDefaults.buttonElevation(20.dp),
+            enabled = remnant.note.isNotEmpty() &&
+                    remnant.remnantImageUri.isNotEmpty() &&
+                    remnant.type.isNotEmpty()
         ) {
             Icon(Icons.Default.Add, contentDescription = "Reminisce")
             Spacer(modifier.width(width = 4.dp))

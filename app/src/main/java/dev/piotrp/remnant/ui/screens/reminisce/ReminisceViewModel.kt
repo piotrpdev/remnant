@@ -1,10 +1,15 @@
 package dev.piotrp.remnant.ui.screens.reminisce
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.ui.platform.LocalContext
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dev.piotrp.remnant.data.model.RemnantModel
 import dev.piotrp.remnant.firebase.services.AuthService
 import dev.piotrp.remnant.firebase.services.FirestoreService
@@ -14,7 +19,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ReminisceViewModel @Inject
-constructor(private val repository: FirestoreService,
+constructor(
+    @ApplicationContext private val context: Context,
+    private val repository: FirestoreService,
     private val authService: AuthService)
     : ViewModel() {
     var isErr = mutableStateOf(false)
@@ -33,6 +40,9 @@ constructor(private val repository: FirestoreService,
             repository.insert(authService.email!!,remnantUploadedImg)
             isErr.value = false
             isLoading.value = false
+            Toast.makeText(
+                context,"Success!",
+                Toast.LENGTH_SHORT).show()
         } catch (e: Exception) {
             isErr.value = true
             error.value = e

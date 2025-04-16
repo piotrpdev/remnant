@@ -55,6 +55,7 @@ import dev.piotrp.remnant.ui.components.general.ButtonComponent
 import dev.piotrp.remnant.ui.components.reminisce.ReminisceButton
 import dev.piotrp.remnant.ui.components.reminisce.MessageInput
 import dev.piotrp.remnant.ui.components.reminisce.RadioButtonGroup
+import dev.piotrp.remnant.ui.components.reminisce.RemnantTypeDropdownMenu
 import dev.piotrp.remnant.ui.components.reminisce.WelcomeText
 import dev.piotrp.remnant.ui.screens.report.ReportViewModel
 import dev.piotrp.remnant.ui.theme.RemnantTheme
@@ -149,9 +150,8 @@ fun ReminisceScreen(modifier: Modifier = Modifier,
                 },
                 isEnabled = true
             )
-            RadioButtonGroup(
-                modifier = modifier,
-                onPaymentTypeChange = { paymentType = it }
+            RemnantTypeDropdownMenu(
+                onRemnantTypeChange = { paymentType = it }
             )
             MessageInput(
                 modifier = modifier,
