@@ -21,11 +21,17 @@ class FirestoreRepository
                     private val firestore: FirebaseFirestore
 ) : FirestoreService {
 
-    override suspend fun getAll(email: String): Remnants {
+    override suspend fun getAll(): Remnants {
+        return firestore.collection(REMNANT_COLLECTION)
+            .dataObjects()
+    }
+
+    override suspend fun getAllFromCurrentUser(email: String): Remnants {
         return firestore.collection(REMNANT_COLLECTION)
             .whereEqualTo(USER_EMAIL, email)
             .dataObjects()
     }
+
     override suspend fun get(
         email: String,
         remnantId: String): Remnant? {

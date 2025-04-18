@@ -10,6 +10,7 @@
         <string name="defaultMethod">N/A</string>
         <string name="defaultNote">Found Bigfoot here.</string>
         <string name="enter_message">Enter Note</string>
+        <string name="enter_search">Search</string>
         <string name="show_less">Show Less</string>
         <string name="show_more">Show More</string>
         <string name="empty_list">No Remnants Yet - Go make a Remnant!</string>

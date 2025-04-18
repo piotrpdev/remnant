@@ -2,12 +2,18 @@ package dev.piotrp.remnant.ui.screens.report
 
 import android.content.res.Configuration
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
@@ -24,6 +30,7 @@ import dev.piotrp.remnant.data.model.fakeRemnants
 import dev.piotrp.remnant.ui.components.general.Centre
 import dev.piotrp.remnant.ui.components.general.ShowError
 import dev.piotrp.remnant.ui.components.general.ShowLoader
+import dev.piotrp.remnant.ui.components.report.SearchBar
 import dev.piotrp.remnant.ui.components.report.RemnantCardList
 import dev.piotrp.remnant.ui.components.report.ReportText
 import dev.piotrp.remnant.ui.theme.RemnantTheme
@@ -40,6 +47,8 @@ fun ReportScreen(modifier: Modifier = Modifier,
     val error = reportViewModel.error.value
     val isLoading = reportViewModel.isloading.value
 
+    var searchQuery by remember { mutableStateOf("") }
+
     Timber.i("RS : Remnants List = $remnants")
 
 //    LaunchedEffect(Unit) {
@@ -54,7 +63,7 @@ fun ReportScreen(modifier: Modifier = Modifier,
             ),
         ) {
             if(isLoading) ShowLoader("Loading Remnants...")
-            ReportText()
+//            ReportText()
 //            if(!isError)
 //                ShowRefreshList(onClick = { reportViewModel.getRemnants() })
             if (remnants.isEmpty() && !isError)
@@ -69,8 +78,16 @@ fun ReportScreen(modifier: Modifier = Modifier,
                     )
                 }
             if (!isError) {
+                SearchBar(
+                    modifier = modifier.padding(vertical = 20.dp),
+                    onSearchChange = { searchQuery = it }
+                )
+                Spacer(modifier = Modifier.height(10.dp))
                 RemnantCardList(
-                    remnants = remnants,
+                    remnants = remnants.filter {
+                        it.note.toLowerCase().contains(searchQuery.toLowerCase()) ||
+                        it.type.toLowerCase().contains(searchQuery.toLowerCase())
+                    },
                     onClickRemnantDetails = onClickRemnantDetails,
                     onDeleteRemnant = { remnant: RemnantModel ->
                         reportViewModel.deleteRemnant(remnant)
@@ -112,7 +129,7 @@ fun PreviewReportScreen(
                 end = 24.dp
             ),
         ) {
-            ReportText()
+//            ReportText()
             if(remnants.isEmpty())
                 Centre(Modifier.fillMaxSize()) {
                     Text(color = MaterialTheme.colorScheme.secondary,
@@ -123,11 +140,17 @@ fun PreviewReportScreen(
                         text = stringResource(R.string.empty_list)
                     )
                 }
-            else
+            else {
+                SearchBar(
+                    modifier = modifier.padding(vertical = 20.dp),
+                    onSearchChange = { }
+                )
+                Spacer(modifier = Modifier.height(10.dp))
                 RemnantCardList(
                     remnants = remnants,
                     onDeleteRemnant = {}
                 ) { }
+            }
         }
     }
 }

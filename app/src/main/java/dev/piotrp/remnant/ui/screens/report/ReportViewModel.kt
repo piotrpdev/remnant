@@ -33,7 +33,7 @@ constructor(private val repository: FirestoreService,
         viewModelScope.launch {
             try {
                 isloading.value = true
-                repository.getAll(authService.email!!).collect{ items ->
+                repository.getAll().collect{ items ->
                         _remnants.value = items
                         iserror.value = false
                         isloading.value = false
