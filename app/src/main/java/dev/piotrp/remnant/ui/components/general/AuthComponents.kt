@@ -11,6 +11,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Logout
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.CameraAlt
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
@@ -338,34 +340,48 @@ fun ClickableTextComponent(value: String, onTextSelected: (String) -> Unit) {
 }
 
 @Composable
-fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boolean = false) {
+fun ButtonComponent(value: String, onButtonClicked: () -> Unit, isEnabled: Boolean = false, isCaptureButton: Boolean = false) {
+//    Box(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .heightIn(48.dp)
+//            .background(
+//                brush = Brush.horizontalGradient(
+//                    colors = listOf(
+//                        endGradientColor,
+//                        startGradientColor,
+//                    )
+//                ),
+//                shape = RoundedCornerShape(50.dp)
+//            ),
+//        contentAlignment = Alignment.Center
+//    )
+
     Button(
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(48.dp),
+            .heightIn(48.dp)
+            .background(
+                brush = Brush.horizontalGradient(
+                    colors = listOf(
+                        endGradientColor,
+                        startGradientColor,
+                    )
+                ),
+                shape = RoundedCornerShape(50.dp)
+            ),
         onClick = {
             onButtonClicked.invoke()
         },
         contentPadding = PaddingValues(),
         colors = ButtonDefaults.buttonColors(Color.Transparent),
-        shape = RoundedCornerShape(50.dp),
-        enabled = isEnabled
+        enabled = isEnabled,
     ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(48.dp)
-                .background(
-                    brush = Brush.horizontalGradient(
-                        colors = listOf(
-                            endGradientColor,
-                            startGradientColor,
-                        )
-                    ),
-                    shape = RoundedCornerShape(50.dp)
-                ),
-            contentAlignment = Alignment.Center
-        ) {
+        Row {
+            if (isCaptureButton) {
+                Icon(Icons.Default.CameraAlt, tint = Color.White, contentDescription = "Capture")
+                Spacer(Modifier.width(width = 4.dp))
+            }
             Text(
                 text = value,
                 fontSize = 18.sp,

@@ -119,6 +119,7 @@ fun ReminisceScreen(modifier: Modifier = Modifier,
             )
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(30.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
 //            WelcomeText()
             Spacer(modifier = Modifier.height(10.dp))
@@ -137,6 +138,7 @@ fun ReminisceScreen(modifier: Modifier = Modifier,
                 )
             }
             ButtonComponent(
+                isCaptureButton = true,
                 value = stringResource(id = R.string.capturePhotoButton),
                 onButtonClicked = {
                     val permissionCheckResult =

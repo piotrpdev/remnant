@@ -1,5 +1,6 @@
 package dev.piotrp.remnant.ui.components.reminisce
 
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.text.input.TextFieldLineLimits
 import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.text.input.setTextAndPlaceCursorAtEnd
@@ -27,16 +28,17 @@ import timber.log.Timber
 fun RemnantTypeDropdownMenu(
     onRemnantTypeChange: (String) -> Unit
 ) {
-    val options = listOf("Funny", "Happy", "Sad", "Angry", "Surprised")
+    val options = listOf("Funny \uD83D\uDE02", "Happy \uD83D\uDE04", "Sad \uD83D\uDE1E", "Angry \uD83D\uDE20", "Surprised \uD83D\uDE2E")
     var expanded by remember { mutableStateOf(false) }
     var text by remember { mutableStateOf(options[0]) }
 
     ExposedDropdownMenuBox(
+        modifier = Modifier.fillMaxWidth(),
         expanded = expanded,
         onExpandedChange = { expanded = it }
     ) {
         TextField(
-            modifier = Modifier. menuAnchor(MenuAnchorType. PrimaryNotEditable),
+            modifier = Modifier.menuAnchor(MenuAnchorType. PrimaryNotEditable).fillMaxWidth(),
             value = text,
             onValueChange = {},
             readOnly = true,
