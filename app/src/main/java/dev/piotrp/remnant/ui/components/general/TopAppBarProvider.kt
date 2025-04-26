@@ -11,12 +11,17 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -35,7 +40,9 @@ fun TopAppBarProvider(
     canNavigateBack: Boolean,
     email: String,
     name: String,
-    navigateUp: () -> Unit = {}
+    switchChecked: Boolean = true,
+    onCheckChange: (Boolean) -> Unit = {},
+    navigateUp: () -> Unit = {},
 )
 {
     TopAppBar(
@@ -88,7 +95,21 @@ fun TopAppBarProvider(
                 })
 
         },
-        actions = { DropDownMenu(navController = navController) }
+        actions = {
+            Row {
+                Switch(
+                    checked = switchChecked,
+                    onCheckedChange = {
+                        onCheckChange(it)
+                    },
+                    colors = SwitchDefaults.colors(
+                        checkedTrackColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                        checkedBorderColor = MaterialTheme.colorScheme.onSecondary,
+                    )
+                )
+                DropDownMenu(navController = navController)
+            }
+        }
     )
 }
 
@@ -96,6 +117,21 @@ fun TopAppBarProvider(
 @Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
 @Composable
 fun TopAppBarPreview() {
+    RemnantTheme {
+        TopAppBarProvider(
+            navController = rememberNavController(),
+            Reminisce,
+            true,
+            email = "dave@gmail.com",
+            name = "userName!!"
+        )
+    }
+}
+
+@Preview(showBackground = true)
+@Preview(uiMode = Configuration.UI_MODE_NIGHT_YES)
+@Composable
+fun TopAppBarOffPreview() {
     RemnantTheme {
         TopAppBarProvider(
             navController = rememberNavController(),

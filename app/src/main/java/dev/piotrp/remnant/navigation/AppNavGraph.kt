@@ -23,7 +23,8 @@ fun NavHostProvider(
     navController: NavHostController,
     startDestination: AppDestination,
     paddingValues: PaddingValues,
-    permissions: Boolean
+    permissions: Boolean,
+    switchChecked: Boolean = true
 ) {
     NavHost(
         navController = navController,
@@ -46,6 +47,7 @@ fun NavHostProvider(
                     remnantId : String ->
                     navController.navigateToRemnantDetails(remnantId)
                 },
+                switchChecked = switchChecked
             )
         }
         composable(route = About.route) {
@@ -93,7 +95,7 @@ fun NavHostProvider(
 
         composable(route = Map.route) {
             //call our 'Map' Screen Here
-            MapScreen(permissions = permissions)
+            MapScreen(permissions = permissions, switchChecked = switchChecked)
         }
     }
 }

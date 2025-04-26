@@ -32,20 +32,24 @@ import dev.piotrp.remnant.ui.components.general.ShowError
 import dev.piotrp.remnant.ui.components.general.ShowLoader
 import dev.piotrp.remnant.ui.components.report.SearchBar
 import dev.piotrp.remnant.ui.components.report.RemnantCardList
-import dev.piotrp.remnant.ui.components.report.ReportText
 import dev.piotrp.remnant.ui.theme.RemnantTheme
 import timber.log.Timber
 
 
 @Composable
-fun ReportScreen(modifier: Modifier = Modifier,
-                 onClickRemnantDetails: (String) -> Unit,
-                 reportViewModel: ReportViewModel = hiltViewModel()) {
+fun ReportScreen(
+    modifier: Modifier = Modifier,
+    onClickRemnantDetails: (String) -> Unit,
+    reportViewModel: ReportViewModel = hiltViewModel(),
+    switchChecked: Boolean = true
+) {
 
     val remnants = reportViewModel.uiRemnants.collectAsState().value
     val isError = reportViewModel.iserror.value
     val error = reportViewModel.error.value
     val isLoading = reportViewModel.isloading.value
+
+    val email = reportViewModel.email
 
     var searchQuery by remember { mutableStateOf("") }
 
@@ -87,6 +91,12 @@ fun ReportScreen(modifier: Modifier = Modifier,
                     remnants = remnants.filter {
                         it.note.toLowerCase().contains(searchQuery.toLowerCase()) ||
                         it.type.toLowerCase().contains(searchQuery.toLowerCase())
+                    }.filter {
+                        if (switchChecked || email.isNullOrEmpty()) {
+                            true
+                        } else {
+                            it.email == email
+                        }
                     },
                     onClickRemnantDetails = onClickRemnantDetails,
                     onDeleteRemnant = { remnant: RemnantModel ->

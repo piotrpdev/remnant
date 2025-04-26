@@ -27,6 +27,8 @@ constructor(private val repository: FirestoreService,
     var isloading = mutableStateOf(false)
     var error = mutableStateOf(Exception())
 
+    val email: String? get() = authService.email
+
     init { getRemnants() }
 
     fun getRemnants() {

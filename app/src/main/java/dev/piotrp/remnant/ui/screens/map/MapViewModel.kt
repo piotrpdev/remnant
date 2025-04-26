@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.model.LatLng
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.piotrp.remnant.firebase.services.AuthService
 import dev.piotrp.remnant.location.LocationService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,7 +16,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MapViewModel @Inject constructor(
-    private val locationTracker: LocationService
+    private val locationTracker: LocationService,
+    private val authService: AuthService
 ) : ViewModel() {
 
     private val _currentLatLng = MutableStateFlow(LatLng(0.0, 0.0))
@@ -23,6 +25,8 @@ class MapViewModel @Inject constructor(
 
     private val _hasPermissions = MutableStateFlow(false)
     val hasPermissions: StateFlow<Boolean> get() = _hasPermissions
+
+    val email: String? get() = authService.email
 
     fun setPermissions(permissions: Boolean) {
             _hasPermissions.value = permissions

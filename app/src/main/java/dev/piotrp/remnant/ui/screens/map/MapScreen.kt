@@ -33,6 +33,7 @@ fun MapScreen(
     mapViewModel: MapViewModel = hiltViewModel(),
     reportViewModel: ReportViewModel = hiltViewModel(),
     permissions: Boolean,
+    switchChecked: Boolean = true,
 ) {
     val uiSettings by remember { mutableStateOf(MapUiSettings(
             myLocationButtonEnabled = permissions,
@@ -49,6 +50,7 @@ fun MapScreen(
 
     val currentLocation = mapViewModel.currentLatLng.collectAsState().value
     val remnants = reportViewModel.uiRemnants.collectAsState().value
+    val email = mapViewModel.email
 
     Timber.i("MAP LAT/LNG PERMISSIONS $permissions ")
 
@@ -77,7 +79,13 @@ fun MapScreen(
                                 title = "Current Location",
                                 snippet = "This is My Current Location"
                                     )
-                    remnants.forEach {
+                    remnants.filter {
+                        if (switchChecked || email.isNullOrEmpty()) {
+                            true
+                        } else {
+                            it.email == email
+                        }
+                    }.forEach {
                             val position = LatLng(it.latitude,it.longitude)
                             MarkerComposable(
                                     state = MarkerState(position = position),

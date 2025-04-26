@@ -8,6 +8,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -47,6 +50,7 @@ fun HomeScreen(modifier: Modifier = Modifier,
     val userEmail = if (isActiveSession) currentUser?.email else ""
     val userName = if (isActiveSession) currentUser?.displayName else ""
     val userDestinations = if (!isActiveSession) userSignedOutDestinations else bottomAppBarDestinations
+    var switchChecked by remember { mutableStateOf(true) }
 
     val locationPermissions = rememberMultiplePermissionsState(
             permissions = listOf(
@@ -76,6 +80,10 @@ fun HomeScreen(modifier: Modifier = Modifier,
             canNavigateBack = navController.previousBackStackEntry != null,
             email = userEmail!!,
             name = userName!!,
+            switchChecked = switchChecked,
+            onCheckChange = {
+                switchChecked = it
+            }
         ) { navController.navigateUp() }
         },
         content = { paddingValues ->
@@ -86,7 +94,8 @@ fun HomeScreen(modifier: Modifier = Modifier,
                 paddingValues = paddingValues,
                 permissions = mapViewModel
                     .hasPermissions
-                    .collectAsState().value
+                    .collectAsState().value,
+                switchChecked = switchChecked
             )
         },
         bottomBar = {
