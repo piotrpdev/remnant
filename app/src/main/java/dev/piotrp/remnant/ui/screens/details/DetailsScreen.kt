@@ -42,6 +42,7 @@ import dev.piotrp.remnant.ui.components.details.DetailsScreenText
 import dev.piotrp.remnant.ui.components.details.ReadOnlyTextField
 import dev.piotrp.remnant.ui.components.general.ShowLoader
 import dev.piotrp.remnant.ui.theme.RemnantTheme
+import kotlin.math.roundToInt
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -91,8 +92,10 @@ fun DetailsScreen(
         {
             //Payment Type Field
             ReadOnlyTextField(value = remnant.type,
-                label = "Payment Type")
+                label = "Remnant Type")
             //Date Reminisced Field
+            ReadOnlyTextField(value = remnant.typeIntensity.roundToInt().toString(),
+                label = "Type Intensity")
             ReadOnlyTextField(value = remnant.dateCreated.toString(),
                 label = "Date Reminisced")
             //Message Field

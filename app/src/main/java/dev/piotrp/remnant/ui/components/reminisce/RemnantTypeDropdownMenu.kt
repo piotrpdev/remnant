@@ -43,7 +43,7 @@ fun RemnantTypeDropdownMenu(
             onValueChange = {},
             readOnly = true,
             singleLine = true,
-            label = { Text("Label") },
+            label = { Text("Type") },
             trailingIcon = { ExposedDropdownMenuDefaults. TrailingIcon(expanded = expanded) },
             colors = ExposedDropdownMenuDefaults. textFieldColors()
         )

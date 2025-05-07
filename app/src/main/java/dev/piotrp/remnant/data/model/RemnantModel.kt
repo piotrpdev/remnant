@@ -15,7 +15,8 @@ data class RemnantModel(
     var avatarImageUri: String = "",
     var latitude: Double = 0.0,
     var longitude: Double = 0.0,
-    var remnantImageUri: String = ""
+    var remnantImageUri: String = "",
+    var typeIntensity: Float = 1f
 )
 
 val fakeRemnants = List(30) { i ->
@@ -29,6 +30,7 @@ val fakeRemnants = List(30) { i ->
         avatarImageUri = "",
         latitude = 0.0,
         longitude = 0.0,
-        remnantImageUri = ""
+        remnantImageUri = "",
+        typeIntensity = 1f
     )
 }

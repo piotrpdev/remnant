@@ -13,6 +13,7 @@ import dev.piotrp.remnant.data.model.RemnantModel
 import dev.piotrp.remnant.data.model.fakeRemnants
 import dev.piotrp.remnant.ui.theme.RemnantTheme
 import java.text.DateFormat
+import kotlin.math.roundToInt
 
 @Composable
 internal fun RemnantCardList(
@@ -29,6 +30,7 @@ internal fun RemnantCardList(
         ) { remnant ->
             RemnantCard(
                 paymentType = remnant.type,
+                typeIntensity = remnant.typeIntensity.roundToInt().toString(),
                 message = remnant.note,
                 dateCreated = DateFormat.getDateTimeInstance().format(remnant.dateCreated),
                 dateModified = DateFormat.getDateTimeInstance().format(remnant.dateModified),

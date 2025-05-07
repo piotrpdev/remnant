@@ -8,23 +8,18 @@ import android.content.res.Configuration
 import android.net.Uri
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -33,9 +28,7 @@ import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale.Companion.Crop
 import androidx.compose.ui.layout.ContentScale.Companion.FillBounds
-import androidx.compose.ui.layout.ContentScale.Companion.Fit
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -45,9 +38,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.google.firebase.BuildConfig
 import dev.piotrp.remnant.R
 import dev.piotrp.remnant.data.model.RemnantModel
 import dev.piotrp.remnant.data.model.fakeRemnants
@@ -56,14 +47,15 @@ import dev.piotrp.remnant.ui.components.reminisce.ReminisceButton
 import dev.piotrp.remnant.ui.components.reminisce.MessageInput
 import dev.piotrp.remnant.ui.components.reminisce.RadioButtonGroup
 import dev.piotrp.remnant.ui.components.reminisce.RemnantTypeDropdownMenu
+import dev.piotrp.remnant.ui.components.reminisce.RemnantTypeIntensitySlider
 import dev.piotrp.remnant.ui.components.reminisce.WelcomeText
 import dev.piotrp.remnant.ui.screens.report.ReportViewModel
 import dev.piotrp.remnant.ui.theme.RemnantTheme
-import timber.log.Timber
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Objects
+import kotlin.math.roundToInt
 
 // Photo code copied from https://medium.com/@dheerubhadoria/capturing-images-from-camera-in-android-with-jetpack-compose-a-step-by-step-guide-64cd7f52e5de
 
@@ -85,8 +77,9 @@ fun ReminisceScreen(modifier: Modifier = Modifier,
                     reportViewModel: ReportViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
-    var paymentType by remember { mutableStateOf("Funny") }
-    var paymentMessage by remember { mutableStateOf("Found Bigfoot here.") }
+    var remnantType by remember { mutableStateOf("Funny") }
+    var remnantTypeIntensity by remember { mutableFloatStateOf(1f) }
+    var remnantMessage by remember { mutableStateOf("Found Bigfoot here.") }
 
     val file = context.createImageFile()
     val uri = FileProvider.getUriForFile(
@@ -153,17 +146,21 @@ fun ReminisceScreen(modifier: Modifier = Modifier,
                 isEnabled = true
             )
             RemnantTypeDropdownMenu(
-                onRemnantTypeChange = { paymentType = it }
+                onRemnantTypeChange = { remnantType = it }
             )
+            RemnantTypeIntensitySlider {
+                remnantTypeIntensity = it
+            }
             MessageInput(
                 modifier = modifier,
-                onMessageChange = { paymentMessage = it }
+                onMessageChange = { remnantMessage = it }
             )
             ReminisceButton (
                 modifier = modifier,
                 remnant = RemnantModel(
-                    type = paymentType,
-                    note = paymentMessage,
+                    type = remnantType,
+                    typeIntensity = remnantTypeIntensity.roundToInt().toFloat(),
+                    note = remnantMessage,
                     remnantImageUri = capturedImageUri.toString()
                 ),
             )
